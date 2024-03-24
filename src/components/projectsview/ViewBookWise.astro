@@ -1,0 +1,60 @@
+---
+import SectionContainer from "../SectionContainer.astro"
+import Coffee from "../icons/Coffee.astro"
+import JavaIcon from "../icons/JavaIcon.astro"
+import MysqIcon from "../icons/MysqIcon.astro"
+const TAGS={
+    JAVA: {
+        name: "Java",
+        class: "bg-[#003259] text-white",
+        icon: JavaIcon,
+    },
+    MYSQL: {
+        name: "MySQL",
+        class: "bg-[#003259] text-white",
+        icon: MysqIcon,
+    },
+}
+
+const PROJECTS = [
+    {
+        title: 'Biblioteca BookWise Solutions',
+        description: 'Aplicacion de Escritorio para la Biblioteca BookWize',
+        caracteristica1: 'Registro y edición de datos de libros y clientes',
+        caracteristica2: 'Generación de boletas en PDF con detalles de las compras de los clientes, incluyendo libros adquiridos y cantidad.',
+        caracteristica3: 'Almacenamiento de información de cada venta en una tabla dedicada.',
+        caracteristica4: 'Creación de gráficos para visualizar los días con mayor actividad de ventas.',
+        image: '/projects/proyecto1.webp',
+        tags: [TAGS.JAVA, TAGS.MYSQL]
+    }
+]
+---
+{
+    PROJECTS.map(({ image, title, description, caracteristica1, caracteristica2, caracteristica3, caracteristica4
+        ,tags}) =>(
+        <article class="mt-10">
+            <h3 class="text-4xl font-semibold text-blue-400 mb-6 text-center border-2 border-blue-300 rounded-full py-2 px-4">{title}</h3>
+            <p class="text-lg text-pretty text-center mb-12 text-yellow-100 font-bold">{description}</p>
+            <SectionContainer>
+                <Coffee />
+                Caracterisitcas del proyecto
+                <li class="mt-5 mb-5">{caracteristica1}</li>
+                <li class="mb-5">{caracteristica2}</li>
+                <li class="mb-5">{caracteristica3}</li>
+                <li class="mb-5">{caracteristica4}</li>
+            </SectionContainer>
+            <div class="w-full lg:w-[980px] mx-auto pb-24">
+                <img class="rounded shadow-2xl shadow-white/10 w-full mb-10" src={image} alt={`Captura de pantalla del proyecto ${image}`}/>
+                <ul class="flex gap-x-2 flex-row mb-3 ">
+                    {tags.map(tag => (
+                        <li>
+                            <span class={`flex gap-x-3 rounded-full text-xs ${tag.class} py-3 px-3`}>
+                                <tag.icon class="size-5"/> {tag.name}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </article>
+    ))
+}
