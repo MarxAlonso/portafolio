@@ -36,20 +36,21 @@ const TAGS={
 
 const PROJECTS = [
     {
-        title: 'IBHunter',
+        title: 'IBContrata',
         description: 'Pagina web de la empresa CORPIBGroup. Migracion de la pagina al framework Laravel 10',
-        caracteristica1: ' Dirigí el proceso de migración de IBHunter a la última versión de Laravel, aprovechando las nuevas características y mejoras de rendimiento que ofrece esta versión.',
+        caracteristica1: ' Dirigí el proceso de migración de IBContrata a la última versión de Laravel, aprovechando las nuevas características y mejoras de rendimiento que ofrece esta versión.',
         caracteristica2: ' Realicé una exhaustiva actualización del código, optimizando su estructura y asegurando su compatibilidad con Laravel 10. Esto incluyó la revisión y la refactorización de partes obsoletas del código.',
-        caracteristica3: ' Implementé Bootstrap 5 para hacer que IBHunter sea completamente responsive y dinámico. Esta modernización mejoró significativamente la experiencia del usuario, permitiendo un acceso óptimo desde dispositivos móviles y de escritorio.',
-        image: '/projects/gymbros1.webp',
-        image2: '/projects/gymbros2.webp',
-        image3: '/projects/bookwize2.webp',
+        caracteristica3: ' Implementé Bootstrap 5 para hacer que IBContrata sea completamente responsive y dinámico. Esta modernización mejoró significativamente la experiencia del usuario, permitiendo un acceso óptimo desde dispositivos móviles y de escritorio.',
+        image: '/projects/ibcontrata.webp',
+        image2: '/projects/ibcontrata2.webp',
+        image3: '/projects/ibcontrata3.webp',
+        image4: '/projects/ibcontrata4.webp',
         tags: [TAGS.LARAVEL, TAGS.PHP, TAGS.BOOTSTRAP, TAGS.CSS, TAGS.JAVASCRIPT]
     }
 ]
 ---
 {
-    PROJECTS.map(({ image, image2, image3, title, description, caracteristica1, caracteristica2, caracteristica3, tags}) => (
+    PROJECTS.map(({ image, image2, image3, image4, title, description, caracteristica1, caracteristica2, caracteristica3, tags}) => (
         <article class="mt-10">
             <h3 class="text-4xl font-semibold text-blue-400 mb-6 text-center border-2 border-blue-300 rounded-full py-2 px-4">{title}</h3>
             <p class="text-lg text-pretty text-center mb-12 text-yellow-100 font-bold">{description}</p>
@@ -76,6 +77,8 @@ const PROJECTS = [
             <div class="w-full mx-auto pb-24 flex flex-wrap gap-4 justify-center lg:justify-center">
                 <img class="rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image} alt={`Captura de pantalla del proyecto ${image}`}/>
                 <img class="rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image2} alt={`Captura de pantalla del proyecto ${image2}`}/>
+                <img class="rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image3} alt={`Captura de pantalla del proyecto ${image3}`}/>
+                <img class="rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image4} alt={`Captura de pantalla del proyecto ${image4}`}/>
             </div>
         </article>
     ))
