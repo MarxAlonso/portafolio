@@ -25,12 +25,14 @@ const PROJECTS = [
         caracteristica3: 'Almacenamiento de información de cada venta en una tabla dedicada.',
         caracteristica4: 'Creación de gráficos para visualizar los días con mayor actividad de ventas.',
         image: '/projects/proyecto1.webp',
+        image2: '/projects/bookwize1.webp',
+        image3: '/projects/bookwize2.webp',
         tags: [TAGS.JAVA, TAGS.MYSQL]
     }
 ]
 ---
 {
-    PROJECTS.map(({ image, title, description, caracteristica1, caracteristica2, caracteristica3, caracteristica4
+    PROJECTS.map(({ image, image2, image3, title, description, caracteristica1, caracteristica2, caracteristica3, caracteristica4
         ,tags}) =>(
         <article class="mt-10">
             <h3 class="text-4xl font-semibold text-blue-400 mb-6 text-center border-2 border-blue-300 rounded-full py-2 px-4">{title}</h3>
@@ -38,18 +40,9 @@ const PROJECTS = [
             <SectionContainer>
                 <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center text-amber-600">
                     <Coffee />
-                    Caracterisitcas del proyecto
+                    Características del proyecto
                 </h2>
-                <div class="text-wrap border-2 rounded-lg border-gray-300 p-6">
-                    <li class="mt-5 mb-5">{caracteristica1}</li>
-                    <li class="mb-5">{caracteristica2}</li>
-                    <li class="mb-5">{caracteristica3}</li>
-                    <li class="mb-5">{caracteristica4}</li>
-                </div>
-            </SectionContainer>
-            <div class="w-full lg:w-[980px] mx-auto pb-24">
-                <img class="rounded shadow-2xl shadow-white/10 w-full mb-10" src={image} alt={`Captura de pantalla del proyecto ${image}`}/>
-                <ul class="flex gap-x-2 flex-row mb-3 ">
+                <ul class="flex gap-x-2 flex-row justify-center lg:justify-start mb-10">
                     {tags.map(tag => (
                         <li>
                             <span class={`flex gap-x-3 rounded-full text-xs ${tag.class} py-3 px-3`}>
@@ -58,6 +51,17 @@ const PROJECTS = [
                         </li>
                     ))}
                 </ul>
+                <div class="text-wrap border-2 rounded-lg border-gray-300 p-6">
+                    <li class="mt-5 mb-5">{caracteristica1}</li>
+                    <li class="mb-5">{caracteristica2}</li>
+                    <li class="mb-5">{caracteristica3}</li>
+                    <li class="mb-5">{caracteristica4}</li>
+                </div>
+            </SectionContainer>
+            <div class="w-full mx-auto pb-24 flex flex-wrap gap-4 justify-center lg:justify-center">
+                <img class="rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image} alt={`Captura de pantalla del proyecto ${image}`}/>
+                <img class="rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image2} alt={`Captura de pantalla del proyecto ${image2}`}/>
+                <img class="rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image3} alt={`Captura de pantalla del proyecto ${image3}`}/>
             </div>
         </article>
     ))
