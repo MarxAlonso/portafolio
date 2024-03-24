@@ -6,12 +6,12 @@ import MysqIcon from "../icons/MysqIcon.astro"
 const TAGS={
     JAVA: {
         name: "Java",
-        class: "bg-[#003259] text-white",
+        class: "bg-[#2E2E2F] text-white",
         icon: JavaIcon,
     },
     MYSQL: {
         name: "MySQL",
-        class: "bg-[#003259] text-white",
+        class: "bg-[#2E2E2F] text-white",
         icon: MysqIcon,
     },
 }
@@ -46,7 +46,7 @@ const PROJECTS = [
                     {tags.map(tag => (
                         <li>
                             <span class={`flex gap-x-3 rounded-full text-xs ${tag.class} py-3 px-3`}>
-                                <tag.icon class="size-5"/> {tag.name}
+                                <tag.icon class="size-4"/> {tag.name}
                             </span>
                         </li>
                     ))}
