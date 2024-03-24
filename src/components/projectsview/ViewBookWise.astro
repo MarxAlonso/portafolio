@@ -36,12 +36,16 @@ const PROJECTS = [
             <h3 class="text-4xl font-semibold text-blue-400 mb-6 text-center border-2 border-blue-300 rounded-full py-2 px-4">{title}</h3>
             <p class="text-lg text-pretty text-center mb-12 text-yellow-100 font-bold">{description}</p>
             <SectionContainer>
-                <Coffee />
-                Caracterisitcas del proyecto
-                <li class="mt-5 mb-5">{caracteristica1}</li>
-                <li class="mb-5">{caracteristica2}</li>
-                <li class="mb-5">{caracteristica3}</li>
-                <li class="mb-5">{caracteristica4}</li>
+                <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center text-amber-600">
+                    <Coffee />
+                    Caracterisitcas del proyecto
+                </h2>
+                <div class="text-wrap border-2 rounded-lg border-gray-300 p-6">
+                    <li class="mt-5 mb-5">{caracteristica1}</li>
+                    <li class="mb-5">{caracteristica2}</li>
+                    <li class="mb-5">{caracteristica3}</li>
+                    <li class="mb-5">{caracteristica4}</li>
+                </div>
             </SectionContainer>
             <div class="w-full lg:w-[980px] mx-auto pb-24">
                 <img class="rounded shadow-2xl shadow-white/10 w-full mb-10" src={image} alt={`Captura de pantalla del proyecto ${image}`}/>
