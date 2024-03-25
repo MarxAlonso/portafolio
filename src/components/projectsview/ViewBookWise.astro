@@ -1,6 +1,7 @@
 ---
 import SectionContainer from "../SectionContainer.astro"
 import Coffee from "../icons/Coffee.astro"
+import GitIcon from "../icons/GitIcon.astro"
 import JavaIcon from "../icons/JavaIcon.astro"
 import MysqIcon from "../icons/MysqIcon.astro"
 const TAGS={
@@ -14,6 +15,11 @@ const TAGS={
         class: "bg-[#2E2E2F] text-white",
         icon: MysqIcon,
     },
+    GIT: {
+        name: "Git",
+        class: "bg-[#2E2E2F] text-white",
+        icon: GitIcon,
+    }
 }
 
 const PROJECTS = [
@@ -27,7 +33,7 @@ const PROJECTS = [
         image: '/projects/proyecto1.webp',
         image2: '/projects/bookwize1.webp',
         image3: '/projects/bookwize2.webp',
-        tags: [TAGS.JAVA, TAGS.MYSQL]
+        tags: [TAGS.JAVA, TAGS.MYSQL, TAGS.GIT]
     }
 ]
 ---
@@ -45,7 +51,7 @@ const PROJECTS = [
                 <ul class="flex gap-x-2 flex-row justify-center lg:justify-start mb-10">
                     {tags.map(tag => (
                         <li>
-                            <span class={`flex gap-x-3 rounded-full text-xs ${tag.class} py-3 px-3`}>
+                            <span class={`flex gap-x-3 rounded-full text-xs ${tag.class} py-3 px-3 hover:bg-slate-400 hover:text-black`}>
                                 <tag.icon class="size-4"/> {tag.name}
                             </span>
                         </li>
