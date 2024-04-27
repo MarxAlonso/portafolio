@@ -82,6 +82,16 @@ const PROJECTS3 = [
         tags: [TAGS.LARAVEL, TAGS.PHP, TAGS.BOOTSTRAP, TAGS.CSS, TAGS.HTML, TAGS.JAVASCRIPT, TAGS.GIT]
     }
 ]
+
+const PROJECTS4 = [
+    {
+        title: 'AventuraGym',
+        description: 'Página web de la empresa AventuraGym',
+        image: '/projects/gymbros1.webp',
+        tags: [TAGS.JAVA, TAGS.MYSQL]
+    }
+]
+
 ---
 {
     PROJECTS1.map(({ image, title, description, tags}) =>(
@@ -149,6 +159,32 @@ const PROJECTS3 = [
             </ul>
             <div class="relative group">
                 <a href="IBContrata">
+                    <img class="rounded shadow-2xl shadow-white/10" src={image} alt={`Captura de pantalla del proyecto ${image}`}/>    
+                    <div class="absolute inset-0 bg-opacity-70 bg-slate-600 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-white text-lg font-bold">Ver Descripción del Proyecto</span>
+                    </div>
+                </a>
+            </div>
+        </article>
+        <br>
+    ))    
+}
+{
+    PROJECTS4.map(({ image, title, description, tags}) =>(
+        <article>
+            <h3 class="text-2xl font-semibold text-blue-400 mb-2">{title}</h3>
+            <p class="text-lg mb-4 text-pretty">{description}</p>
+            <ul class="flex flex-wrap gap-x-2 justify-center lg:justify-start mb-3">
+                {tags.map(tag => (
+                    <li>
+                        <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 mb-3`}>
+                            <tag.icon class="size-4"/> {tag.name}
+                        </span>
+                    </li>
+                ))}
+            </ul>
+            <div class="relative group">
+                <a href="AventuraGym">
                     <img class="rounded shadow-2xl shadow-white/10" src={image} alt={`Captura de pantalla del proyecto ${image}`}/>    
                     <div class="absolute inset-0 bg-opacity-70 bg-slate-600 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <span class="text-white text-lg font-bold">Ver Descripción del Proyecto</span>
