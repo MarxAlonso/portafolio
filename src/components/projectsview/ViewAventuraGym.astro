@@ -44,10 +44,11 @@ const PROJECTS = [
     {
         title: 'AventuraGym',
         description: 'Pagina web de la empresa AventuraGym. Creación de la página web',
-        caracteristica1: ' Dirigí y realicé el proyecto de AventuraGym utilizando herramientas como php, Bootstrap, y más. Aprovechando las nuevas características y mejoras de rendimiento que ofrece esta versión.',
+        caracteristica1: ' Dirigí y realicé el proyecto de AventuraGym utilizando herramientas como php, Bootstrap, mysql y más. Aprovechando las nuevas características y mejoras de rendimiento que ofrece esta versión.',
         caracteristica2: ' Realicé la creación exhaustiva y actualización del código, optimizando su estructura y asegurando su compatibilidad con php.',
         caracteristica3: ' Implementé Bootstrap 5 para hacer que AventuraGym sea completamente responsive y dinámico. Esta modernización mejoró significativamente la experiencia del usuario, permitiendo un acceso óptimo desde dispositivos móviles y de escritorio.',
         caracteristica4: 'Falta redactar:D',
+        caracteristica5: 'Falta redactar:D',
         image: '/projects/ibcontrata.webp',
         image2: '/projects/ibcontrata2.webp',
         image3: '/projects/ibcontrata3.webp',
@@ -57,7 +58,7 @@ const PROJECTS = [
 ]
 ---
 {
-    PROJECTS.map(({ image, image2, image3, image4, title, description, caracteristica1, caracteristica2, caracteristica3, caracteristica4, tags}) => (
+    PROJECTS.map(({ image, image2, image3, image4, title, description, caracteristica1, caracteristica2, caracteristica3, caracteristica4, caracteristica5, tags}) => (
         <article class="mt-10">
             <h3 class="text-4xl font-semibold text-blue-400 mb-6 text-center py-2 px-4">{title}</h3>
             <p class="text-lg text-pretty text-center mb-12 text-yellow-100 font-bold">{description}</p>
@@ -76,10 +77,11 @@ const PROJECTS = [
                     ))}
                 </ul>
                 <div class="text-wrap border-2 rounded-lg border-gray-300 p-6">
-                    <li class="mt-5 mb-5"><b class="text-red-900">Creación del proyecto desde inicio:</b> {caracteristica1}</li>
-                    <li class="mb-5"><b class="text-red-900">Actualización del Código:</b> {caracteristica2}</li>
-                    <li class="mb-5"><b class="text-purple-900">Modernización con Bootstrap 5:</b> {caracteristica3}</li>
-                    <li class="mb-5"><b class="text-purple-900">Implementacion de Inicio Sesion con cuentas clientes y cuenta admin: </b> {caracteristica4}</li>
+                    <li class="mt-5 mb-5"><b class="text-blue-500">Creación del proyecto desde inicio:</b> {caracteristica1}</li>
+                    <li class="mb-5"><b class="text-blue-500">Actualización del Código:</b> {caracteristica2}</li>
+                    <li class="mb-5"><b class="text-purple-600">Modernización con Bootstrap 5:</b> {caracteristica3}</li>
+                    <li class="mb-5"><b class="text-purple-600">Implementacion de Inicio Sesion con cuentas clientes y cuenta admin: </b> {caracteristica4}</li>
+                    <li class="mb-5"><b class="text-purple-600">Implementacion de PHPMailer para el envio de correos: </b> {caracteristica5}</li>
                 </div>
             </SectionContainer>
             <div class="w-full mx-auto pb-24 flex flex-wrap gap-4 justify-center lg:justify-center">
