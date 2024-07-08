@@ -1,10 +1,56 @@
-<header class="flex justify-center items-center py-5 w-full text-xs md:text-xl mx-auto">
-    <span></span>
-    <nav class="flex flex-row gap-x-4 lg:gap-x-10 opacity-80">
-        <a href="/">Inicio</a>
-        <a href="/#sobremi">Sobre mi</a>
-        <a href="/#experiencia">Experiencia</a>
-        <a href="/#proyectos">Proyectos</a>
-        <a href="https://blogmarxingsoftware.blogspot.com/" target="_blank" >Blog</a>
+<header class="flex justify-between items-center py-5 w-full text-xs md:text-xl mx-auto z-50 relative">
+    <span><img src="/public/hacker.png" alt="Your Image" class="w-12 h-12 object-cover rounded-full ml-4 md:ml-10" /></span>
+    <nav class="hidden md:flex flex-row gap-x-4 lg:gap-x-10 opacity-80">
+        <a href="/" class="hover:text-blue-400">Inicio</a>
+        <a href="/#sobremi" class="hover:text-blue-400">Sobre mí</a>
+        <a href="/#experiencia" class="hover:text-blue-400">Experiencia</a>
+        <a href="/#proyectos" class="hover:text-blue-400">Proyectos</a>
+        <a href="https://blogmarxingsoftware.blogspot.com/" target="_blank" class="hover:text-blue-400">Blog</a>
     </nav>
+    <button id="menu-toggle" class="md:hidden flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white">
+        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <title>Menu</title>
+            <path d="M0 3h20v2H0zM0 7h20v2H0zM0 11h20v2H0z" />
+        </svg>
+    </button>
 </header>
+<nav id="mobile-menu" class="hidden md:hidden fixed top-0 right-0 h-full flex flex-col gap-y-4 bg-gray-900 text-white py-8 px-4 opacity-80 z-50">
+    <a href="/" class="hover:text-blue-400">Inicio</a>
+    <a href="/#sobremi" class="hover:text-blue-400">Sobre mí</a>
+    <a href="/#experiencia" class="hover:text-blue-400">Experiencia</a>
+    <a href="/#proyectos" class="hover:text-blue-400">Proyectos</a>
+    <a href="https://blogmarxingsoftware.blogspot.com/" target="_blank" class="hover:text-blue-400">Blog</a>
+</nav>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        // Función para cerrar el menú si se hace clic fuera de él
+        function closeMenuOutsideClick(event) {
+            const isClickInsideMenu = mobileMenu.contains(event.target);
+            const isClickOnToggle = menuToggle.contains(event.target);
+
+            if (!isClickInsideMenu && !isClickOnToggle) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+        menuToggle.addEventListener('click', function () {
+            mobileMenu.classList.toggle('hidden');
+        });
+        // Event listener para cerrar el menú al hacer clic fuera de él
+        document.addEventListener('click', closeMenuOutsideClick);
+    });
+</script>
+<style>
+
+    #mobile-menu a {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        transition: background-color 0.3s;
+    }
+
+    #mobile-menu a:hover {
+        background-color: #333;
+        color: white;
+    }
+</style>
