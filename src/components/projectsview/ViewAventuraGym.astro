@@ -55,16 +55,19 @@ const PROJECTS = [
         caracteristica3: ' Implementé Bootstrap 5 para hacer que AventuraGym sea completamente responsive y dinámico. Esta modernización mejoró significativamente la experiencia del usuario, permitiendo un acceso óptimo desde dispositivos móviles y de escritorio.',
         caracteristica4: 'Falta redactar:D',
         caracteristica5: 'Falta redactar:D',
-        image: '/projects/ibcontrata.webp',
-        image2: '/projects/ibcontrata2.webp',
-        image3: '/projects/ibcontrata3.webp',
-        image4: '/projects/ibcontrata4.webp',
+        image: '/projects/aventuragymbd2.webp',
+        image2: '/projects/aventuragymbd3.webp',
+        image3: '/projects/aventuragymbd4.webp',
+        image4: '/projects/aventuragymbd5.webp',
+        image5: '/projects/aventuragymbd6.webp',
+        image6: '/projects/aventuragymbd7.webp',
+        image7: '/projects/aventuragymbd8.webp',
         tags: [TAGS.PHP, TAGS.MYSQL, TAGS.BOOTSTRAP, TAGS.CSS, TAGS.HTML, TAGS.JAVASCRIPT, TAGS.GIT]
     }
 ]
 ---
 {
-    PROJECTS.map(({ image, image2, image3, image4, title, description, caracteristica1, caracteristica2, caracteristica3, caracteristica4, caracteristica5, tags}) => (
+    PROJECTS.map(({ image, image2, image3, image4, image5, image6, image7, title, description, caracteristica1, caracteristica2, caracteristica3, caracteristica4, caracteristica5, tags}) => (
         <article class="mt-10">
             <h3 class="text-4xl font-semibold text-blue-400 mb-6 text-center py-2 px-4">{title}</h3>
             <p class="text-lg text-pretty text-center mb-12 text-yellow-100 font-bold">{description}</p>
@@ -91,11 +94,41 @@ const PROJECTS = [
                 </div>
             </SectionContainer>
             <div class="w-full mx-auto pb-24 flex flex-wrap gap-4 justify-center lg:justify-center">
-                <img class="rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image} alt={`Captura de pantalla del proyecto ${image}`}/>
-                <img class="rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image2} alt={`Captura de pantalla del proyecto ${image2}`}/>
-                <img class="rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image3} alt={`Captura de pantalla del proyecto ${image3}`}/>
-                <img class="rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image4} alt={`Captura de pantalla del proyecto ${image4}`}/>
+                <div class="carousel-container w-full relative">
+                    <div class="carousel flex overflow-x-scroll snap-x snap-mandatory">
+                        <img class="carousel-item snap-center rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image} alt={`Captura de pantalla del proyecto ${image}`}/>
+                        <img class="carousel-item snap-center rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image2} alt={`Captura de pantalla del proyecto ${image2}`}/>
+                        <img class="carousel-item snap-center rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image3} alt={`Captura de pantalla del proyecto ${image3}`}/>
+                        <img class="carousel-item snap-center rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image4} alt={`Captura de pantalla del proyecto ${image4}`}/>
+                        <img class="carousel-item snap-center rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image5} alt={`Captura de pantalla del proyecto ${image5}`}/>
+                        <img class="carousel-item snap-center rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image6} alt={`Captura de pantalla del proyecto ${image6}`}/>
+                        <img class="carousel-item snap-center rounded shadow-2xl shadow-white/10 w-full lg:w-1/3 mb-10" src={image7} alt={`Captura de pantalla del proyecto ${image7}`}/>
+                    </div>
+                </div>
             </div>
         </article>
+        <style>
+            .carousel-container {
+                display: flex;
+                overflow: hidden;
+            }
+
+            .carousel {
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .carousel-item {
+                min-width: 100%;
+                scroll-snap-align: center;
+            }
+
+            @media (min-width: 1024px) {
+                .carousel-item {
+                    min-width: 33.3333%; /* Para que cada imagen ocupe 1/3 del ancho en pantallas grandes */
+                }
+            }
+        </style>
+
     ))
 }
