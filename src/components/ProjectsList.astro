@@ -1,0 +1,126 @@
+---
+import BootstrapIcon from "./icons/BootstrapIcon.astro"
+import CssIcon from "./icons/CssIcon.astro"
+import GitIcon from "./icons/GitIcon.astro"
+import HtmlIcon from "./icons/HtmlIcon.astro"
+import JavaIcon from "./icons/JavaIcon.astro"
+import JavaScriptIcon from "./icons/JavaScriptIcon.astro"
+import LaravelIcon from "./icons/LaravelIcon.astro"
+import MysqIcon from "./icons/MysqIcon.astro"
+import PhpIcon from "./icons/PhpIcon.astro"
+
+const TAGS={
+    JAVA: {
+        name: "Java",
+        class: "bg-[#003259] text-white",
+        icon: JavaIcon,
+    },
+    MYSQL: {
+        name: "MySQL",
+        class: "bg-[#003259] text-white",
+        icon: MysqIcon,
+    },
+    LARAVEL: {
+        name: "Laravel",
+        class: "bg-[#003259] text-white",
+        icon: LaravelIcon,
+    },
+    PHP: {
+        name: "PHP",
+        class: "bg-[#003259] text-white",
+        icon: PhpIcon,
+    },
+    BOOTSTRAP: {
+        name: "Bootstrap 5",
+        class: "bg-[#003259] text-white",
+        icon: BootstrapIcon,
+    },
+    CSS: {
+        name: "CSS",
+        class: "bg-[#003259] text-white",
+        icon: CssIcon,
+    },
+    JAVASCRIPT: {
+        name: "JavaScript",
+        class: "bg-[#003259] text-white",
+        icon: JavaScriptIcon,
+    },
+    GIT: {
+        name: "Git",
+        class: "bg-[#003259] text-white",
+        icon: GitIcon,
+    },
+    HTML: {
+        name: "Html",
+        class: "bg-[#003259] text-white",
+        icon: HtmlIcon,
+    }
+}
+const PROJECTS1 = [
+    {
+        title: 'Biblioteca BookWise Solutions',
+        description: 'Proyecto de un sistema para una Biblioteca',
+        image: '/projects/proyecto1.webp',
+        tags: [TAGS.JAVA, TAGS.MYSQL]
+    }
+]
+
+const PROJECTS2 = [
+    {
+        title: 'Gimnasio Gym Bros',
+        description: 'Proyecto de un sistema para un Gimnasio',
+        image: '/projects/gymbros1.webp',
+        tags: [TAGS.JAVA, TAGS.MYSQL]
+    }
+]
+
+const PROJECTS3 = [
+    {
+        title: 'IBContrata CorpIBGroup',
+        description: 'Proyecto de un sistema para un Gimnasio',
+        image: '/projects/ibcontrata.webp',
+        tags: [TAGS.LARAVEL, TAGS.PHP, TAGS.BOOTSTRAP, TAGS.CSS, TAGS.HTML, TAGS.JAVASCRIPT, TAGS.GIT]
+    }
+]
+
+const PROJECTS4 = [
+    {
+        title: 'AventuraGymBD',
+        description: 'Página web de la empresa AventuraGym',
+        image: '/projects/aventuragymbd.webp',
+        tags: [TAGS.PHP, TAGS.MYSQL, TAGS.BOOTSTRAP, TAGS.CSS, TAGS.HTML, TAGS.JAVASCRIPT, TAGS.GIT, TAGS.MYSQL]
+    }
+]
+const PROJECTS5={
+    title: 'IBSeguros',
+    description: 'Página web de la empresa IBSeguros',
+    image: '',
+    tags: [TAGS.PHP, TAGS.HTML, TAGS.CSS, TAGS.JAVASCRIPT, TAGS.GIT]
+}
+
+---
+{
+    PROJECTS1.map(({image, title, description, tags}) =>(
+    <article class="mb-14">
+            <h3 class="text-2xl font-semibold text-blue-400 mb-2">{title}</h3>
+            <p class="text-lg mb-4 text-pretty">{description}</p>
+            <ul class="flex gap-x-2 flex-row mb-3">
+                {tags.map(tag => (
+                    <li>
+                        <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}>
+                            <tag.icon class="size-4"/> {tag.name}
+                        </span>
+                    </li>
+                ))}
+            </ul>
+            <div class="relative group">
+                <a href="BookWize">
+                    <img class="rounded shadow-2xl shadow-white/10" src={image} alt={`Captura de pantalla del proyecto ${image}`}/>    
+                    <div class="absolute inset-0 bg-opacity-70 bg-purple-950 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-white text-lg font-bold">Ver Descripción del Proyecto</span>
+                    </div>
+                </a>
+            </div>
+        </article>
+    ))
+}
