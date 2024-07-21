@@ -9,7 +9,7 @@ import LaravelIcon from "./icons/LaravelIcon.astro"
 import MysqIcon from "./icons/MysqIcon.astro"
 import PhpIcon from "./icons/PhpIcon.astro"
 
-const TAGS={
+const TAGS = {
     JAVA: {
         name: "Java",
         class: "bg-[#003259] text-white",
@@ -56,71 +56,70 @@ const TAGS={
         icon: HtmlIcon,
     }
 }
-const PROJECTS1 = [
+
+const PROJECTS = [
     {
         title: 'Biblioteca BookWise Solutions',
         description: 'Proyecto de un sistema para una Biblioteca',
         image: '/projects/proyecto1.webp',
+        url: 'BookWize',
         tags: [TAGS.JAVA, TAGS.MYSQL]
-    }
-]
-
-const PROJECTS2 = [
+    },
     {
         title: 'Gimnasio Gym Bros',
         description: 'Proyecto de un sistema para un Gimnasio',
         image: '/projects/gymbros1.webp',
+        url: 'Gimnasio',
         tags: [TAGS.JAVA, TAGS.MYSQL]
-    }
-]
-
-const PROJECTS3 = [
+    },
     {
         title: 'IBContrata CorpIBGroup',
         description: 'Proyecto de un sistema para un Gimnasio',
         image: '/projects/ibcontrata.webp',
+        url: 'IBContrata',
         tags: [TAGS.LARAVEL, TAGS.PHP, TAGS.BOOTSTRAP, TAGS.CSS, TAGS.HTML, TAGS.JAVASCRIPT, TAGS.GIT]
-    }
-]
-
-const PROJECTS4 = [
+    },
     {
         title: 'AventuraGymBD',
         description: 'Página web de la empresa AventuraGym',
         image: '/projects/aventuragymbd.webp',
+        url: 'AventuraGym',
         tags: [TAGS.PHP, TAGS.MYSQL, TAGS.BOOTSTRAP, TAGS.CSS, TAGS.HTML, TAGS.JAVASCRIPT, TAGS.GIT, TAGS.MYSQL]
+    },
+    {
+        title: 'IBSeguros',
+        description: 'Página web de la empresa IBSeguros',
+        image: '/projects/ibseguros.webp',
+        url: 'IBSeguros',
+        tags: [TAGS.PHP, TAGS.HTML, TAGS.CSS, TAGS.JAVASCRIPT, TAGS.GIT]
     }
 ]
-const PROJECTS5={
-    title: 'IBSeguros',
-    description: 'Página web de la empresa IBSeguros',
-    image: '',
-    tags: [TAGS.PHP, TAGS.HTML, TAGS.CSS, TAGS.JAVASCRIPT, TAGS.GIT]
-}
-
 ---
-{
-    PROJECTS1.map(({image, title, description, tags}) =>(
-    <article class="mb-14">
-            <h3 class="text-2xl font-semibold text-blue-400 mb-2">{title}</h3>
-            <p class="text-lg mb-4 text-pretty">{description}</p>
-            <ul class="flex gap-x-2 flex-row mb-3">
-                {tags.map(tag => (
-                    <li>
-                        <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}>
-                            <tag.icon class="size-4"/> {tag.name}
-                        </span>
-                    </li>
-                ))}
-            </ul>
-            <div class="relative group">
-                <a href="BookWize">
-                    <img class="rounded shadow-2xl shadow-white/10" src={image} alt={`Captura de pantalla del proyecto ${image}`}/>    
-                    <div class="absolute inset-0 bg-opacity-70 bg-purple-950 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span class="text-white text-lg font-bold">Ver Descripción del Proyecto</span>
-                    </div>
-                </a>
-            </div>
-        </article>
-    ))
-}
+
+<div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {PROJECTS.map(({ image, title, description, url, tags }) => (
+            <article class="mb-14">
+                <h3 class="text-2xl font-semibold text-blue-400 mb-2">{title}</h3>
+                <p class="text-lg mb-4 text-pretty">{description}</p>
+                <ul class="flex flex-wrap gap-2 mb-3">
+                    {tags.map(tag => (
+                        <li>
+                            <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}>
+                                <tag.icon class="size-4" /> {tag.name}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+                <div class="relative group">
+                    <a href={url}>
+                        <img class="rounded shadow-2xl shadow-white/10 w-full" src={image} alt={`Captura de pantalla del proyecto ${title}`} />
+                        <div class="absolute inset-0 bg-opacity-70 bg-cyan-900 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="text-white text-lg font-bold">Ver Descripción del Proyecto</span>
+                        </div>
+                    </a>
+                </div>
+            </article>
+        ))}
+    </div>
+</div>

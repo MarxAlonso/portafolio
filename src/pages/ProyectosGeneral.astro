@@ -6,10 +6,12 @@ import Layout from "../layouts/Layout.astro";
 ---
 <Layout title="Proyectos Realizados" description="Proyectos en las que he participado y realizado">
     <SectionProyectosList id="proyectos">
-        <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
-            <ProjectsFull class="size-7"/>
-            Lista de Proyectos
-        </h2>
-        <ProjectsList />
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
+                <ProjectsFull class="size-7"/>
+                Lista de Proyectos
+            </h2>
+            <ProjectsList />
+        </div>
     </SectionProyectosList>
 </Layout>
