@@ -1,46 +1,98 @@
 ---
-import ExperienceItem from "./ExperienceItem.astro"
+import ExperienceItem from "./ExperienceItem.astro";
 
 const EXPERIENCE = [
-    {
-        date: 'Noviembre del 2023',
-        title: 'Aplicacion de Escritorio para la Biblioteca BookWize',
-        description: 'Desarrollé el proyecto BookWize para la gestión integral de la biblioteca, permitiendo registrar, editar, guardar y eliminar datos de libros y clientes de manera eficiente. Utilicé Java para la programación y MySQL para la base de datos...',
-        link: 'BookWize',
-    },
-    {
-        date: 'Diciembre 2023',
-        title: 'Aplicacion de Escritorio para un Gimnasio',
-        description: 'Desarrollé una aplicación de escritorio para gestionar eficientemente todas las operaciones de un gimnasio. Esta aplicación permite registrar, editar y eliminar clientes que adquieren membresías, así como también gestionar el personal, los equipos e implementos del gimnasio...',
-        link: 'Gimnasio',
-    },
-    {
-        date: 'Enero 2024',
-        title: 'Proyecto IBContrata',
-        description: 'Como parte de mi trabajo en CorpIBGroup, lideré el proyecto de migración y actualización de IBContrata a Laravel 10. IBContrata es una plataforma crucial para nuestra empresa, y su modernización era esencial para mejorar su rendimiento y mantener su relevancia en el mercado...',
-        link: 'IBContrata',
-    },
-    {
-        date: 'Febrero 2024',
-        title: 'Proyecto IBSeguros',
-        description: 'Como parte de mi trabajo en CorpIBGroup, formé parte del equipo del proyecto de la actualización de IBSeguros . IBSeguros es una plataforma crucial para nuestra empresa, y su modernización y actualización era esencial para mejorar su rendimiento y mantener su relevancia en el mercado...',
-        link: 'IBSeguros',
-    },
-    {
-        date: 'Abril 2024',
-        title: 'Página Web AventuraGym',
-        description: 'Como parte de mi experiencia personal, realicé y lideré el proyecto de AventuraGym. AventuraGym es una plataforma crucial para esta empresa, ya que, no contaba con una página web. Ofreci mi servicio como desarrollador web para la creación de la página, su modernización y actualización para mantener su relevancia en el mercado...',
-        link: 'AventuraGym',
-    },
-]
+  {
+    date: "- Noviembre del 2023",
+    title: "Aplicacion de Escritorio para la Biblioteca BookWize",
+    description:
+      "Desarrollé el proyecto BookWize para la gestión integral de la biblioteca, permitiendo registrar, editar, guardar y eliminar datos de libros y clientes de manera eficiente. Utilicé Java para la programación y MySQL para la base de datos...",
+    link: "BookWize",
+  },
+  {
+    date: "- Diciembre 2023",
+    title: "Aplicacion de Escritorio para un Gimnasio",
+    description:
+      "Desarrollé una aplicación de escritorio para gestionar eficientemente todas las operaciones de un gimnasio. Esta aplicación permite registrar, editar y eliminar clientes que adquieren membresías, así como también gestionar el personal, los equipos e implementos del gimnasio...",
+    link: "Gimnasio",
+  },
+  {
+    date: "- Enero 2024",
+    title: "Proyecto IBContrata",
+    description:
+      "Como parte de mi trabajo en CorpIBGroup, lideré el proyecto de migración y actualización de IBContrata a Laravel 10. IBContrata es una plataforma crucial para nuestra empresa, y su modernización era esencial para mejorar su rendimiento y mantener su relevancia en el mercado...",
+    link: "IBContrata",
+  },
+  {
+    date: "- Febrero 2024",
+    title: "Proyecto IBSeguros",
+    description:
+      "Como parte de mi trabajo en CorpIBGroup, formé parte del equipo del proyecto de la actualización de IBSeguros . IBSeguros es una plataforma crucial para nuestra empresa, y su modernización y actualización era esencial para mejorar su rendimiento y mantener su relevancia en el mercado...",
+    link: "IBSeguros",
+  },
+  {
+    date: "- Abril 2024",
+    title: "Página Web AventuraGym",
+    description:
+      "Como parte de mi experiencia personal, realicé y lideré el proyecto de AventuraGym. AventuraGym es una plataforma crucial para esta empresa, ya que, no contaba con una página web. Ofreci mi servicio como desarrollador web para la creación de la página, su modernización y actualización para mantener su relevancia en el mercado...",
+    link: "AventuraGym",
+  },
+];
 ---
-<ol class="relative border-s border-gray-200 ml-3 dark:border-gray-700">
-    {
-        EXPERIENCE.map(experience => (
-            <li class="mb-10 ms-4">
-                <ExperienceItem {...experience} />
-            </li>
-        ))
-    }                    
+
+<ol class="experience-list relative border-s border-gray-200 ml-3 dark:border-gray-700">
+  {
+    EXPERIENCE.map((experience) => (
+      <li class="mb-10 ms-4 experience-item">
+        <ExperienceItem {...experience} />
+      </li>
+    ))
+  }
 </ol>
 
+<style>
+  @keyframes fadeInBlur {
+    from {
+      opacity: 0;
+      filter: blur(10px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+    }
+  }
+
+  .experience-item {
+    opacity: 0;
+    filter: blur(10px);
+    transition:
+      opacity 1s ease-out,
+      filter 1s ease-out;
+  }
+
+  .experience-item.show {
+    opacity: 1;
+    filter: blur(0);
+  }
+</style>
+
+<script>
+  // Wait for the DOM to be fully loaded
+  document.addEventListener("DOMContentLoaded", function () {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll(".experience-item").forEach((item) => {
+      observer.observe(item);
+    });
+  });
+</script>
