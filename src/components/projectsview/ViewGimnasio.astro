@@ -26,13 +26,12 @@ const PROJECTS = [
         caracteristica4: 'Funcionalidad de venta de productos relacionados con el fitness, como pesas y suplementos.',
         image: '/projects/gymbros1.webp',
         image2: '/projects/gymbros2.webp',
-        image3: '/projects/bookwize2.webp',
         tags: [TAGS.JAVA, TAGS.MYSQL]
     }
 ]
 ---
 {
-    PROJECTS.map(({ image, image2, image3, title, description, caracteristica1, caracteristica2, caracteristica3, caracteristica4
+    PROJECTS.map(({ image, image2, title, description, caracteristica1, caracteristica2, caracteristica3, caracteristica4
         ,tags}) =>(
         <article class="mt-10">
             <h3 class="text-4xl font-semibold text-blue-400 mb-6 text-center py-2 px-4">{title}</h3>
