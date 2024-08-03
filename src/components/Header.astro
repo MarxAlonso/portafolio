@@ -1,4 +1,4 @@
-<header class="flex justify-between items-center py-5 w-full text-xs md:text-xl mx-auto z-50 relative">
+<header class="fixed top-0 left-0 right-0 flex justify-between items-center py-5 w-full text-xs md:text-xl mx-auto z-10 bg-gray-950 shadow-lg">
     <span>
         <a href="/">
             <img src="/hacker.png" alt="Your Image" class="w-12 h-12 object-cover rounded-full ml-4 md:ml-10" />
@@ -12,6 +12,10 @@
     </nav>
 </header>
 <style>
+    body {
+        padding-top: 80px; /* Ajusta este valor según la altura de tu encabezado */
+    }
+
     nav a {
         padding: 10px;
         border-bottom: 1px solid transparent;
