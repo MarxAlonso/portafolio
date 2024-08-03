@@ -29,24 +29,28 @@
     document.addEventListener('DOMContentLoaded', function () {
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
-        // Función para cerrar el menú si se hace clic fuera de él
-        function closeMenuOutsideClick(event) {
-            const isClickInsideMenu = mobileMenu.contains(event.target);
-            const isClickOnToggle = menuToggle.contains(event.target);
 
-            if (!isClickInsideMenu && !isClickOnToggle) {
-                mobileMenu.classList.add('hidden');
+        if (menuToggle && mobileMenu) {
+            // Función para cerrar el menú si se hace clic fuera de él
+            function closeMenuOutsideClick(event) {
+                const isClickInsideMenu = mobileMenu.contains(event.target);
+                const isClickOnToggle = menuToggle.contains(event.target);
+
+                if (!isClickInsideMenu && !isClickOnToggle) {
+                    mobileMenu.classList.add('hidden');
+                }
             }
+
+            menuToggle.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Event listener para cerrar el menú al hacer clic fuera de él
+            document.addEventListener('click', closeMenuOutsideClick);
         }
-        menuToggle.addEventListener('click', function () {
-            mobileMenu.classList.toggle('hidden');
-        });
-        // Event listener para cerrar el menú al hacer clic fuera de él
-        document.addEventListener('click', closeMenuOutsideClick);
     });
 </script>
 <style>
-
     #mobile-menu a {
         padding: 10px;
         border-bottom: 1px solid #ccc;
