@@ -33,8 +33,9 @@
         if (menuToggle && mobileMenu) {
             // Función para cerrar el menú si se hace clic fuera de él
             function closeMenuOutsideClick(event) {
-                const isClickInsideMenu = mobileMenu.contains(event.target);
-                const isClickOnToggle = menuToggle.contains(event.target);
+                const isClickOnToggle = menuToggle && menuToggle.contains(event.target);
+                const isClickInsideMenu = mobileMenu && mobileMenu.contains(event.target);
+                mobileMenu && mobileMenu.classList.add('hidden');
 
                 if (!isClickInsideMenu && !isClickOnToggle) {
                     mobileMenu.classList.add('hidden');
