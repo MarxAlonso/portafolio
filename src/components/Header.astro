@@ -4,61 +4,38 @@
             <img src="/hacker.png" alt="Your Image" class="w-12 h-12 object-cover rounded-full ml-4 md:ml-10" />
         </a>
     </span>
-    <nav class="hidden md:flex flex-row gap-x-4 lg:gap-x-10 opacity-80">
+    <nav class="flex flex-row flex-wrap gap-x-2 md:gap-x-4 lg:gap-x-10 opacity-80">
         <a href="/" class="hover:text-blue-400">Inicio</a>
         <a href="/#sobremi" class="hover:text-blue-400">Sobre mí</a>
         <a href="/#experiencia" class="hover:text-blue-400">Experiencia</a>
         <a href="/#proyectos" class="hover:text-blue-400">Proyectos</a>
-        <a href="https://blogmarxingsoftware.blogspot.com/" target="_blank" class="hover:text-blue-400">Blog</a>
     </nav>
-    <button id="menu-toggle" class="md:hidden flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white">
-        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <title>Menu</title>
-            <path d="M0 3h20v2H0zM0 7h20v2H0zM0 11h20v2H0z" />
-        </svg>
-    </button>
 </header>
-<nav id="mobile-menu" class="hidden md:hidden fixed top-0 right-0 h-full flex flex-col gap-y-4 bg-gray-900 text-white py-8 px-4 opacity-80 z-50">
-    <a href="/" class="hover:text-blue-400">Inicio</a>
-    <a href="/#sobremi" class="hover:text-blue-400">Sobre mí</a>
-    <a href="/#experiencia" class="hover:text-blue-400">Experiencia</a>
-    <a href="/#proyectos" class="hover:text-blue-400">Proyectos</a>
-    <a href="https://blogmarxingsoftware.blogspot.com/" target="_blank" class="hover:text-blue-400">Blog</a>
-</nav>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (menuToggle && mobileMenu) {
-            // Función para cerrar el menú si se hace clic fuera de él
-            function closeMenuOutsideClick(event) {
-                const isClickInsideMenu = mobileMenu.contains(event.target);
-                const isClickOnToggle = menuToggle.contains(event.target);
-
-                if (!isClickInsideMenu && !isClickOnToggle) {
-                    mobileMenu.classList.add('hidden');
-                }
-            }
-
-            menuToggle.addEventListener('click', function () {
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            // Event listener para cerrar el menú al hacer clic fuera de él
-            document.addEventListener('click', closeMenuOutsideClick);
-        }
-    });
-</script>
 <style>
-    #mobile-menu a {
+    nav a {
         padding: 10px;
-        border-bottom: 1px solid #ccc;
-        transition: background-color 0.3s;
+        border-bottom: 1px solid transparent;
+        transition: background-color 0.3s, border-bottom-color 0.3s;
+        font-size: 0.8rem;
     }
 
-    #mobile-menu a:hover {
+    nav a:hover {
         background-color: #333;
         color: white;
+        border-bottom-color: #ccc;
+    }
+
+    @media (min-width: 768px) {
+        nav a {
+            font-size: 1rem;
+            border-bottom: none;
+        }
+    }
+
+    @media (max-width: 767px) {
+        nav a {
+            flex: 1 1 auto;
+            text-align: center;
+        }
     }
 </style>
