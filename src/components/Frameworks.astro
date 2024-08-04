@@ -1,0 +1,71 @@
+---
+import BootstrapIcon from "./icons/BootstrapIcon.astro";
+import CssIcon from "./icons/CssIcon.astro";
+import GitIcon from "./icons/GitIcon.astro";
+import HtmlIcon from "./icons/HtmlIcon.astro";
+import JavaIcon from "./icons/JavaIcon.astro";
+import JavaScriptIcon from "./icons/JavaScriptIcon.astro";
+import LaravelIcon from "./icons/LaravelIcon.astro";
+import MysqIcon from "./icons/MysqIcon.astro";
+import PhpIcon from "./icons/PhpIcon.astro";
+import TailwindCssIcon from "./icons/TailwindCssIcon.astro";
+import ReactIcon from "./icons/ReactIcon.astro";
+import TypeScriptIcon from "./icons/TypeScriptIcon.astro";
+import SQLIcon from "./icons/SQLIcon.astro";
+import AstroIcon from './icons/AstroIcon.astro';
+import AngularIcon from './icons/AngularIcon.astro';
+
+const icons = [
+  { name: "Bootstrap", component: BootstrapIcon },
+  { name: "CSS", component: CssIcon },
+  { name: "Git", component: GitIcon },
+  { name: "HTML", component: HtmlIcon },
+  { name: "Java", component: JavaIcon },
+  { name: "JavaScript", component: JavaScriptIcon },
+  { name: "Laravel", component: LaravelIcon },
+  { name: "MySQL", component: MysqIcon },
+  { name: "SQL", component: SQLIcon },
+  { name: "PHP", component: PhpIcon },
+  { name: "TailwindCSS", component: TailwindCssIcon },
+  { name: "React", component: ReactIcon },
+  { name: "TypeScript", component: TypeScriptIcon },
+  { name: "Astro", component: AstroIcon },
+  { name: "Angular", component: AngularIcon },
+];
+---
+
+<div class="flex flex-wrap justify-center gap-4">
+  {icons.map(({ name, component: Icon }, index) => (
+    <div class={`sphere sphere-${index} group w-16 h-16 flex items-center justify-center rounded-full bg-gray-300 bg-opacity-20 backdrop-blur-lg border border-gray-300 shadow-lg hover:bg-opacity-50 transition-all duration-300`}>
+      <Icon class="w-10 h-10 group-hover:text-current" fill="gray" />
+    </div>
+  ))}
+</div>
+
+<script type="module">
+  document.addEventListener('DOMContentLoaded', () => {
+    const spheres = document.querySelectorAll('.sphere');
+    spheres.forEach((sphere, index) => {
+      const animationDuration = Math.random() * 3 + 2; // Random duration between 2 and 5 seconds
+      const keyframes = `
+        @keyframes moveSphere${index} {
+          0% { transform: translate(0, 0); }
+          50% { transform: translate(${Math.random() * 20 - 10}%, ${Math.random() * 20 - 10}%); }
+          100% { transform: translate(${Math.random() * 20 - 10}%, ${Math.random() * 20 - 10}%); }
+        }
+      `;
+      const styleSheet = document.createElement("style");
+      styleSheet.type = "text/css";
+      styleSheet.innerText = keyframes;
+      document.head.appendChild(styleSheet);
+
+      sphere.style.animation = `moveSphere${index} ${animationDuration}s infinite alternate`;
+    });
+  });
+</script>
+
+<style>
+  .sphere {
+    animation: moveSphere0 3s infinite alternate;
+  }
+</style>

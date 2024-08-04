@@ -12,6 +12,8 @@ import SectionContainer from '../components/SectionContainer.astro';
 import ProjectsFull from '../components/icons/ProjectsFull.astro';
 import WhatsApp from '../components/icons/WhatsApp.astro';
 import Github from '../components/icons/Github.astro';
+import ProgramarIcon from '../components/icons/ProgramarIcon.astro';
+import Frameworks from '../components/Frameworks.astro';
 ---
 <Layout title="Portafolio | Marx Chipana" description="Contrata a Creaciones Peña para crear ." >
 	<main class="px-4" id="sobremi">
@@ -49,7 +51,13 @@ import Github from '../components/icons/Github.astro';
 			</h2>
 			<Experience />
 		</SectionContainer>
-
+		<SectionContainer>
+			<h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
+				<ProgramarIcon class="size-7"/>
+				Lenguajes y Frameworks
+			</h2>
+			<Frameworks />
+		</SectionContainer>
 		<SectionContainer id="proyectos">
 			<h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
 				<ProjectsFull class="size-7"/>
