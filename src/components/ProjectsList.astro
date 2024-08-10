@@ -8,7 +8,9 @@ import JavaScriptIcon from "./icons/JavaScriptIcon.astro"
 import LaravelIcon from "./icons/LaravelIcon.astro"
 import MysqIcon from "./icons/MysqIcon.astro"
 import PhpIcon from "./icons/PhpIcon.astro"
-
+import ReactIcon from "./icons/ReactIcon.astro"
+import TypeScriptIcon from "./icons/TypeScriptIcon.astro"
+import TailwindCssIcon from "./icons/TailwindCssIcon.astro"
 const TAGS = {
     JAVA: {
         name: "Java",
@@ -54,6 +56,21 @@ const TAGS = {
         name: "Html",
         class: "bg-[#003259] text-white",
         icon: HtmlIcon,
+    },
+    REACT: {
+        name: "React",
+        class: "bg-[#003259] text-white",
+        icon: ReactIcon, 
+    },
+    TAILWIND: {
+        name: "TailwindCss",
+        class: "bg-[#003259] text-white",
+        icon: TailwindCssIcon,
+    },
+    TYPESCRIPT: {
+        name: "TypeScript",
+        class: "bg-[#003259] text-white",
+        icon: TypeScriptIcon,
     }
 }
 
@@ -92,6 +109,13 @@ const PROJECTS = [
         image: '/projects/ibseguros.webp',
         url: '/IBSeguros',
         tags: [TAGS.PHP, TAGS.HTML, TAGS.CSS, TAGS.JAVASCRIPT, TAGS.GIT]
+    },
+    {
+        title: 'ToritoGrill',
+        description: 'Página web de la empresa ToritoGrill',
+        image: '/projects/torito-grill.webp',
+        url: '/ToritoGrill',
+        tags: [TAGS.REACT, TAGS.TYPESCRIPT, TAGS.TAILWIND, TAGS.HTML, TAGS.GIT, TAGS.JAVASCRIPT, TAGS.CSS]
     }
 ]
 ---
