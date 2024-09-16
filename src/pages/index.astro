@@ -15,6 +15,7 @@ import Github from '../components/icons/Github.astro';
 import ProgramarIcon from '../components/icons/ProgramarIcon.astro';
 import Frameworks from '../components/Frameworks.astro';
 import EstilosGenial from '../components/EstilosFrameworks/EstilosGenial.astro';
+import ContactoIcon from '../components/icons/ContactoIcon.astro';
 ---
 <Layout title="Portafolio | Marx Chipana" description="Contrata a Creaciones Peña para crear ." >
 	<main class="px-4" id="sobremi">
@@ -44,6 +45,13 @@ import EstilosGenial from '../components/EstilosFrameworks/EstilosGenial.astro';
 					Marx Alonso
 				</Social>
 			</nav>
+		</SectionContainer>
+		<SectionContainer>
+			<a 
+			class="text-3xl font-semibold mb-6 flex gap-x-3 items-center bg-blue-950 text-white py-3 px-6 w-fit max-w-xs rounded-lg shadow-lg hover:bg-cyan-950 transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out"
+			href="Contacto">
+			<ContactoIcon class="w-7 h-7" /> Contáctame
+			</a>
 		</SectionContainer>		
 		<SectionContainer id="experiencia">
 			<h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
@@ -60,6 +68,10 @@ import EstilosGenial from '../components/EstilosFrameworks/EstilosGenial.astro';
 			<Frameworks />
 		</SectionContainer>
 		<SectionContainer>
+			<h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
+				<ProgramarIcon class="size-7"/>
+				Softwares
+			</h2>
 			<EstilosGenial />
 		</SectionContainer>
 		<SectionContainer id="proyectos">
