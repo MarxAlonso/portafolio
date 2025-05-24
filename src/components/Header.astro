@@ -1,45 +1,77 @@
-<header class="fixed top-0 left-0 right-0 flex justify-between items-center py-5 w-full text-xs md:text-xl mx-auto z-10 bg-gray-950 shadow-lg">
-    <span>
-        <a href="/">
-            <img src="/hacker.png" alt="Your Image" class="w-12 h-12 object-cover rounded-full ml-4 md:ml-10" />
-        </a>
-    </span>
-    <nav class="flex flex-row flex-wrap gap-x-2 md:gap-x-4 lg:gap-x-10 opacity-80">
-        <a href="/" class="hover:text-blue-400 text-white">Inicio</a>
-        <a href="/#sobremi" class="hover:text-blue-400 text-white">Sobre mí</a>
-        <a href="/#experiencia" class="hover:text-blue-400 text-white">Experiencia</a>
-        <a href="/#proyectos" class="hover:text-blue-400 text-white">Proyectos</a>
-    </nav>
-</header>
-<style>
+<header class="fixed top-0 left-0 right-0 z-10">
+    <div class="bg-gray-950/90 backdrop-blur-sm shadow-lg">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <div class="flex-shrink-0">
+            <a href="/" class="block">
+              <img 
+                src="/hacker.png" 
+                alt="Logo" 
+                class="w-10 h-10 md:w-12 md:h-12 object-cover rounded-full transition-transform hover:scale-110"
+              />
+            </a>
+          </div>
+          
+          <nav class="hidden md:flex space-x-8">
+            <a href="/" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm md:text-base">Inicio</a>
+            <a href="/#sobremi" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm md:text-base">Sobre mí</a>
+            <a href="/#experiencia" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm md:text-base">Experiencia</a>
+            <a href="/#proyectos" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm md:text-base">Proyectos</a>
+          </nav>
+  
+          <!-- Menú móvil -->
+          <div class="md:hidden">
+            <button 
+              id="mobile-menu-button" 
+              class="text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-lg p-2"
+              aria-label="Menu"
+            >
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+  
+        <!-- Menú móvil expandible -->
+        <div id="mobile-menu" class="hidden md:hidden pb-4">
+          <div class="flex flex-col space-y-3">
+            <a href="/" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm px-4 py-2 rounded-lg hover:bg-gray-800">Inicio</a>
+            <a href="/#sobremi" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm px-4 py-2 rounded-lg hover:bg-gray-800">Sobre mí</a>
+            <a href="/#experiencia" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm px-4 py-2 rounded-lg hover:bg-gray-800">Experiencia</a>
+            <a href="/#proyectos" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm px-4 py-2 rounded-lg hover:bg-gray-800">Proyectos</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <style>
     body {
-        padding-top: 80px; /* Ajusta este valor según la altura de tu encabezado */
+      padding-top: 4rem;
     }
-
-    nav a {
-        padding: 10px;
-        border-bottom: 1px solid transparent;
-        transition: background-color 0.3s, border-bottom-color 0.3s;
-        font-size: 0.8rem;
-    }
-
-    nav a:hover {
-        background-color: #333;
-        color: white;
-        border-bottom-color: #ccc;
-    }
-
+  
     @media (min-width: 768px) {
-        nav a {
-            font-size: 1rem;
-            border-bottom: none;
-        }
+      body {
+        padding-top: 5rem;
+      }
     }
-
-    @media (max-width: 767px) {
-        nav a {
-            flex: 1 1 auto;
-            text-align: center;
-        }
+  </style>
+  
+  <script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+  
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+  
+      // Cerrar menú al hacer clic en un enlace
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
     }
-</style>
+  </script>
