@@ -1,112 +1,963 @@
 ---
-import ExperienceItem from "./ExperienceItem.astro";
+// La experiencia se dibuja como un `git log --graph`: un tronco por el que baja
+// el historial, una rama por año y un commit por trabajo. Los años se paginan:
+// se ve una rama a la vez y el cambio se ensambla como nanotecnología.
+interface Trabajo {
+  hash: string;
+  fecha: string;
+  rol: string;
+  empresa: string;
+  /** tipo de contrato o modalidad, si se conoce */
+  modalidad?: string;
+  enCurso?: boolean;
+  descripcion?: string;
+  puntos?: string[];
+  tags: string[];
+  /** cifra que resume el resultado, si el trabajo la tiene */
+  logro?: string;
+  link?: string;
+}
 
-const EXPERIENCE = [
+const HISTORIAL: { anio: string; tinte: string; trabajos: Trabajo[] }[] = [
   {
-    date: "- Marzo 2025 - Agosto 2025",
-    title: "Desarrollador Web Freelancer — 3RCore Agencia de Marketing",
-    description:
-      "Diseñé y desarrollé sitios web corporativos responsivos para diversos clientes de la agencia, implementando optimización de imágenes, carga asíncrona y mejoras de rendimiento que lograron reducir los tiempos de carga hasta en un 40 %. También realicé mantenimiento continuo, integración de CMS en WordPress con Elementor y Divi, y gestión de despliegues en entornos de producción.",
-    link: "/",
+    anio: '2026',
+    tinte: '#5ed3ff',
+    trabajos: [
+      {
+        hash: 'f4c07e1',
+        fecha: 'Julio 2026 — Actualidad',
+        rol: 'Programador Full Stack',
+        empresa: '3R Core Agencia de Marketing',
+        modalidad: 'Contrato temporal · Remoto',
+        enCurso: true,
+        puntos: [
+          'Desarrollo de soluciones web Full Stack para proyectos internos y de clientes.',
+          'Mantenimiento, administración y optimización de sitios web desarrollados en WordPress.',
+          'Desarrollo de funcionalidades personalizadas mediante código y mejoras continuas de las plataformas.',
+          'Gestión de backups, restauración de sitios y mantenimiento preventivo.',
+          'Diagnóstico y resolución de incidencias técnicas, optimizando el rendimiento y la seguridad.',
+          'Participación en reuniones con clientes para el análisis de requerimientos, planificación y seguimiento de proyectos.',
+          'Colaboración con equipos multidisciplinarios para implementar soluciones digitales alineadas con los objetivos del negocio.',
+          'Implementación de mejoras en rendimiento, SEO técnico y experiencia de usuario.',
+          'Soporte técnico, documentación y mantenimiento de aplicaciones y sitios web.',
+        ],
+        tags: ['WordPress', 'Next.js', 'Full Stack', 'SEO técnico'],
+      },
+      {
+        hash: '2b9d5a6',
+        fecha: 'Febrero 2026 — Actualidad',
+        rol: 'Desarrollador Web WordPress & Consultor de Optimización Digital',
+        empresa: 'Hispano Tesis Excelsius',
+        modalidad: 'Jornada parcial · Remoto',
+        enCurso: true,
+        puntos: [
+          'Desarrollo y mantenimiento de sitios web en WordPress, enfocados en rendimiento, escalabilidad y rentabilidad del proyecto.',
+          'Implementación y personalización de funcionalidades mediante plugins y desarrollo a medida (Elementor y código personalizado).',
+          'Gestión y configuración de formularios de contacto con pruebas de validación, automatización e integración con herramientas externas (Google Sheets, monitoreo y seguimiento).',
+          'Coordinación y agendamiento de reuniones técnicas para evaluación, optimización e implementación de soluciones digitales.',
+          'Asesoría técnica en proyectos web orientada a buenas prácticas, eficiencia operativa y mejora continua.',
+          'Migración de proyectos a tecnologías web modernas como Astro, orientada al posicionamiento SEO, GEO y AEO.',
+          'Seguimiento de KPIs con Google Analytics, Search Console y Microsoft Clarity.',
+        ],
+        tags: ['WordPress', 'Elementor', 'Astro', 'SEO · GEO · AEO', 'Google Analytics', 'Search Console', 'Microsoft Clarity'],
+      },
+    ],
   },
   {
-    date: "- Enero 2025 - Febrero 2025",
-    title: "Líder de Proyecto Web — AventuraGym",
-    description:
-      "Lideré el desarrollo completo de la plataforma web de AventuraGym, un gimnasio que carecía de presencia digital. Construí una aplicación web moderna e interactiva con React, TypeScript y TailwindCSS, implementando diseño responsive, navegación intuitiva y formularios de contacto integrados. El proyecto incluyó despliegue en producción y capacitación al personal para la gestión de contenido.",
-    link: "AventuraGym",
+    anio: '2025',
+    tinte: '#a78bfa',
+    trabajos: [
+      {
+        hash: 'd6e18b3',
+        fecha: 'Noviembre 2025 — Actualidad',
+        rol: 'Analista Programador',
+        empresa: 'Famat Consulting',
+        enCurso: true,
+        puntos: [
+          'Desarrollo de aplicaciones web y de un CRM a medida.',
+          'Optimización y mejora del flujo de desarrollo.',
+          'Conexión del CRM con varias aplicaciones para mejorar la captación de leads y el trabajo del área de marketing.',
+          'Desarrollo de sitios web de carácter internacional.',
+          'Mejora de la interfaz y de la facilidad de uso de las plataformas.',
+          'Implementación de un servidor en un celular con Termux para el envío de SMS de prueba.',
+          'Seguimiento de KPIs con Google Analytics, Search Console y Microsoft Clarity.',
+        ],
+        tags: ['CRM', 'Integraciones', 'Termux', 'Google Analytics', 'Search Console', 'Microsoft Clarity'],
+      },
+      {
+        hash: 'a3f91c2',
+        fecha: 'Marzo 2025 — Agosto 2025',
+        rol: 'Desarrollador Web Freelancer',
+        empresa: '3RCore Agencia de Marketing',
+        descripcion:
+          'Diseñé y desarrollé sitios web corporativos responsivos para diversos clientes de la agencia, implementando optimización de imágenes, carga asíncrona y mejoras de rendimiento que lograron reducir los tiempos de carga hasta en un 40 %. También realicé mantenimiento continuo, integración de CMS en WordPress con Elementor y Divi, y gestión de despliegues en entornos de producción.',
+        tags: ['WordPress', 'Elementor', 'Divi', 'Rendimiento'],
+        logro: '−40 % tiempo de carga',
+      },
+      {
+        hash: '7be04d8',
+        fecha: 'Enero 2025 — Febrero 2025',
+        rol: 'Líder de Proyecto Web',
+        empresa: 'AventuraGym',
+        descripcion:
+          'Lideré el desarrollo completo de la plataforma web de AventuraGym, un gimnasio que carecía de presencia digital. Construí una aplicación web moderna e interactiva con React, TypeScript y TailwindCSS, implementando diseño responsive, navegación intuitiva y formularios de contacto integrados. El proyecto incluyó despliegue en producción y capacitación al personal para la gestión de contenido.',
+        tags: ['React', 'TypeScript', 'TailwindCSS'],
+        link: 'AventuraGym',
+      },
+    ],
   },
   {
-    date: "- Febrero 2024",
-    title: "Desarrollador Full-Stack — IBSeguros (CorpIBGroup)",
-    description:
-      "Participé activamente en la modernización y migración de IBSeguros, una plataforma crítica para la empresa. Implementé nuevas funcionalidades en Laravel y Vue.js, optimicé consultas a la base de datos MySQL y mejoré la experiencia de usuario con interfaces más ágiles y accesibles. También colaboré en la migración de la infraestructura a un entorno más escalable.",
-    link: "IBSeguros",
+    anio: '2024',
+    tinte: '#4ade80',
+    trabajos: [
+      {
+        hash: 'c21e7a5',
+        fecha: 'Febrero 2024',
+        rol: 'Desarrollador Full-Stack',
+        empresa: 'IBSeguros (CorpIBGroup)',
+        descripcion:
+          'Participé activamente en la modernización y migración de IBSeguros, una plataforma crítica para la empresa. Implementé nuevas funcionalidades en Laravel y Vue.js, optimicé consultas a la base de datos MySQL y mejoré la experiencia de usuario con interfaces más ágiles y accesibles. También colaboré en la migración de la infraestructura a un entorno más escalable.',
+        tags: ['Laravel', 'Vue.js', 'MySQL'],
+        link: 'IBSeguros',
+      },
+      {
+        hash: '9d48f03',
+        fecha: 'Enero 2024',
+        rol: 'Líder de Migración',
+        empresa: 'IBContrata (CorpIBGroup)',
+        descripcion:
+          'Lideré la migración completa de IBContrata de Laravel 7 a Laravel 10, modernizando la arquitectura del backend, refactorizando controladores y modelos, y actualizando dependencias obsoletas. Implementé nuevas APIs RESTful, mejoré la seguridad con autenticación JWT y optimicé el rendimiento general de la plataforma, reduciendo los tiempos de respuesta en un 30 %.',
+        tags: ['Laravel 10', 'API REST', 'JWT'],
+        logro: '−30 % tiempo de respuesta',
+        link: 'IBContrata',
+      },
+    ],
   },
   {
-    date: "- Enero 2024",
-    title: "Líder de Migración — IBContrata (CorpIBGroup)",
-    description:
-      "Lideré la migración completa de IBContrata de Laravel 7 a Laravel 10, modernizando la arquitectura del backend, refactorizando controladores y modelos, y actualizando dependencias obsoletas. Implementé nuevas APIs RESTful, mejoré la seguridad con autenticación JWT y optimicé el rendimiento general de la plataforma, reduciendo los tiempos de respuesta en un 30 %.",
-    link: "IBContrata",
-  },
-  {
-    date: "- Diciembre 2023",
-    title: "Desarrollador de Escritorio — Sistema de Gestión de Gimnasio",
-    description:
-      "Diseñé y desarrollé una aplicación de escritorio completa para la administración integral de un gimnasio. El sistema permite gestionar clientes, membresías, personal, equipos e inventario. Construida con Java y conectada a una base de datos MySQL, la aplicación automatizó procesos manuales, reduciendo el tiempo de administración en un 60 % y proporcionando reportes en tiempo real.",
-    link: "Gimnasio",
-  },
-  {
-    date: "- Julio 2023 - Noviembre 2023",
-    title: "Desarrollador Frontend — Proyectos Web Corporativos",
-    description:
-      "Desarrollé múltiples sitios web corporativos y landing pages para pequeñas y medianas empresas, utilizando React, Next.js y TailwindCSS. Implementé diseños responsivos, animaciones fluidas y formularios inteligentes con validación. También configuré despliegues automatizados en Netlify, Vercel y Cloudflare Pages, garantizando alta disponibilidad y rendimiento.",
-    link: "/",
-  },
-  {
-    date: "- Enero 2023 - Junio 2023",
-    title: "Desarrollador Web — Proyectos con WordPress",
-    description:
-      "Creé y personalicé sitios web profesionales con WordPress utilizando constructores visuales como Elementor y Divi, combinando el poder del diseño visual con bloques de código personalizados en PHP, CSS y JavaScript. Desarrollé temas hijos, optimicé la velocidad de carga con caché y compresión de imágenes, e integré plugins de SEO, comercio electrónico y formularios avanzados.",
-    link: "/",
+    anio: '2023',
+    tinte: '#ffb257',
+    trabajos: [
+      {
+        hash: '5ac6b19',
+        fecha: 'Diciembre 2023',
+        rol: 'Desarrollador de Escritorio',
+        empresa: 'Sistema de Gestión de Gimnasio',
+        descripcion:
+          'Diseñé y desarrollé una aplicación de escritorio completa para la administración integral de un gimnasio. El sistema permite gestionar clientes, membresías, personal, equipos e inventario. Construida con Java y conectada a una base de datos MySQL, la aplicación automatizó procesos manuales, reduciendo el tiempo de administración en un 60 % y proporcionando reportes en tiempo real.',
+        tags: ['Java', 'MySQL', 'Escritorio'],
+        logro: '−60 % tiempo de administración',
+        link: 'Gimnasio',
+      },
+      {
+        hash: 'e80b3f4',
+        fecha: 'Julio 2023 — Noviembre 2023',
+        rol: 'Desarrollador Frontend',
+        empresa: 'Proyectos Web Corporativos',
+        descripcion:
+          'Desarrollé múltiples sitios web corporativos y landing pages para pequeñas y medianas empresas, utilizando React, Next.js y TailwindCSS. Implementé diseños responsivos, animaciones fluidas y formularios inteligentes con validación. También configuré despliegues automatizados en Netlify, Vercel y Cloudflare Pages, garantizando alta disponibilidad y rendimiento.',
+        tags: ['React', 'Next.js', 'TailwindCSS', 'Netlify'],
+      },
+      {
+        hash: '1f7d2ae',
+        fecha: 'Enero 2023 — Junio 2023',
+        rol: 'Desarrollador Web',
+        empresa: 'Proyectos con WordPress',
+        descripcion:
+          'Creé y personalicé sitios web profesionales con WordPress utilizando constructores visuales como Elementor y Divi, combinando el poder del diseño visual con bloques de código personalizados en PHP, CSS y JavaScript. Desarrollé temas hijos, optimicé la velocidad de carga con caché y compresión de imágenes, e integré plugins de SEO, comercio electrónico y formularios avanzados.',
+        tags: ['WordPress', 'PHP', 'CSS', 'JavaScript'],
+      },
+    ],
   },
 ];
+
+const total = HISTORIAL.reduce((n, rama) => n + rama.trabajos.length, 0);
+const ultima = HISTORIAL.length - 1;
 ---
 
-<ol class="experience-list relative border-s border-gray-200 ml-3 dark:border-gray-700">
-  {
-    EXPERIENCE.map((experience) => (
-      <li class="mb-10 ms-4 experience-item">
-        <ExperienceItem {...experience} />
-      </li>
-    ))
-  }
-</ol>
+<div class="exp zona-oscura" data-exp>
+  <div class="exp__barra">
+    <span class="exp__luces" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="exp__titulo">marx@portfolio: ~/experiencia</span>
+    <span class="exp__resumen">{total} commits · {HISTORIAL.length} ramas</span>
+  </div>
 
-<style>
-  @keyframes fadeInBlur {
-    from {
-      opacity: 0;
-      filter: blur(10px);
-    }
-    to {
-      opacity: 1;
-      filter: blur(0);
-    }
-  }
+  <div class="exp__cuerpo">
+    <p class="exp__comando" aria-hidden="true">
+      <span class="exp__prompt"><b>marx@portfolio</b>:<i>~/experiencia</i>$</span> git log --graph{' '}
+      <span data-comando-rama>--all</span>
+    </p>
 
-  .experience-item {
-    opacity: 0;
-    filter: blur(10px);
-    transition:
-      opacity 1s ease-out,
-      filter 1s ease-out;
-  }
+    <!-- paginación: un rombo por año, unidos como los pasos de un diagrama -->
+    <nav class="pag" aria-label="Años de experiencia" data-pag>
+      <button type="button" class="pag__flecha" data-ir="-1" aria-label="Año más reciente">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6" /></svg>
+      </button>
+      <ol class="pag__anios">
+        {HISTORIAL.map((rama, i) => (
+          <li>
+            <button
+              type="button"
+              class="pag__anio"
+              data-pagina={i}
+              style={`--tinte:${rama.tinte}`}
+              aria-current={i === 0 ? 'true' : undefined}
+            >
+              <span class="pag__rombo" aria-hidden="true"></span>
+              <b class="mono-num">{rama.anio}</b>
+              <small>{rama.trabajos.length} commits</small>
+            </button>
+          </li>
+        ))}
+      </ol>
+      <button type="button" class="pag__flecha" data-ir="1" aria-label="Año anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6" /></svg>
+      </button>
+    </nav>
 
-  .experience-item.show {
-    opacity: 1;
-    filter: blur(0);
-  }
-</style>
+    <!-- `--nano` es el frente de ensamblaje del panel, igual que en el rail -->
+    <div class="panel" data-panel>
+      <div class="grafo" data-grafo>
+        {HISTORIAL.map((rama, i) => (
+          <section
+            class="rama"
+            data-rama={i}
+            data-anio={rama.anio}
+            data-activa={i === 0 ? '' : undefined}
+            style={`--tinte:${rama.tinte}`}
+            aria-label={`Año ${rama.anio}`}
+          >
+            <!-- el tronco: una línea base y, encima, el tramo ya recorrido -->
+            <span class="rama__tronco" aria-hidden="true"><i></i></span>
+
+            {i === 0 && (
+              <div class="rama__hito" aria-hidden="true">
+                <span class="rama__etiqueta"><b>HEAD</b> → main · hoy</span>
+              </div>
+            )}
+
+            <div class="rama__anio" data-paso>
+              <span class="rama__rombo" aria-hidden="true"></span>
+              <h3 class="rama__nombre">
+                <span class="mono-num">{rama.anio}</span>
+                <small>rama/{rama.anio} · {rama.trabajos.length} commits</small>
+              </h3>
+            </div>
+
+            <ol class="rama__commits">
+              {rama.trabajos.map((t, j) => (
+                <li class:list={['commit', j % 2 === 0 ? 'commit--der' : 'commit--izq']} data-paso>
+                  <span class="commit__nodo" aria-hidden="true"></span>
+                  <span class="commit__cable" aria-hidden="true"></span>
+
+                  <article class="commit__tarjeta">
+                    <header class="commit__cabeza">
+                      <span class="commit__hash" aria-hidden="true">commit {t.hash}</span>
+                      <time class="commit__fecha">
+                        {t.enCurso && <i class="commit__vivo" aria-hidden="true" />}
+                        {t.fecha}
+                      </time>
+                    </header>
+
+                    <h4 class="commit__rol">{t.rol}</h4>
+                    <p class="commit__empresa">@ {t.empresa}</p>
+                    {t.modalidad && <p class="commit__modalidad">{t.modalidad}</p>}
+
+                    {t.descripcion && <p class="commit__descripcion">{t.descripcion}</p>}
+                    {t.puntos && (
+                      <ul class="commit__puntos">
+                        {t.puntos.map((punto) => <li>{punto}</li>)}
+                      </ul>
+                    )}
+
+                    {t.logro && <p class="commit__logro">▲ {t.logro}</p>}
+
+                    <footer class="commit__pie">
+                      <ul class="commit__tags">
+                        {t.tags.map((tag) => <li>{tag}</li>)}
+                      </ul>
+                      {t.link && (
+                        <a href={t.link} class="commit__enlace">Saber más <span aria-hidden="true">→</span></a>
+                      )}
+                    </footer>
+                  </article>
+                </li>
+              ))}
+            </ol>
+
+            <div class="rama__hito rama__hito--fin" data-paso>
+              {i === ultima ? (
+                <span class="rama__etiqueta" aria-hidden="true"><b>init</b> · primer commit · {rama.anio}</span>
+              ) : (
+                <button type="button" class="rama__etiqueta rama__siguiente" data-ir="1">
+                  checkout <b>rama/{HISTORIAL[i + 1].anio}</b> →
+                </button>
+              )}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <span class="panel__nano" aria-hidden="true"></span>
+      <span class="panel__haz" aria-hidden="true"></span>
+    </div>
+  </div>
+</div>
 
 <script>
-  // Wait for the DOM to be fully loaded
-  document.addEventListener("DOMContentLoaded", function () {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+  const raiz = document.querySelector<HTMLElement>('[data-exp]');
+  const panel = raiz?.querySelector<HTMLElement>('[data-panel]');
+  const ramas = raiz ? [...raiz.querySelectorAll<HTMLElement>('[data-rama]')] : [];
 
-    document.querySelectorAll(".experience-item").forEach((item) => {
-      observer.observe(item);
+  if (raiz && panel && ramas.length) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const espera = (ms: number) => new Promise<void>((r) => setTimeout(r, reduce ? 0 : ms));
+    const botones = [...raiz.querySelectorAll<HTMLButtonElement>('[data-pagina]')];
+    const flechas = [...raiz.querySelectorAll<HTMLButtonElement>('.pag__flecha')];
+    const comando = raiz.querySelector<HTMLElement>('[data-comando-rama]');
+
+    let actual = 0;
+    let ocupado = false;
+    // las ramas a las que se llega paginando se recorren solas; la primera, con el scroll
+    const recorridas = new Set<number>();
+    let raf = 0;
+
+    const pasosDe = (rama: HTMLElement) => [...rama.querySelectorAll<HTMLElement>('[data-paso]')];
+
+    /** Lleva el tronco de la rama hasta `cabeza` px y enciende los pasos alcanzados. */
+    const recorrer = (rama: HTMLElement, cabeza: number) => {
+      const caja = rama.getBoundingClientRect();
+      if (!caja.height) return;
+      rama.style.setProperty('--avance', Math.max(0, Math.min(1, cabeza / caja.height)).toFixed(4));
+      for (const paso of pasosDe(rama)) {
+        const y = paso.getBoundingClientRect().top - caja.top + 24;
+        if (y <= cabeza) paso.toggleAttribute('data-on', true);
+      }
+    };
+
+    const completar = (rama: HTMLElement) => {
+      rama.style.setProperty('--avance', '1');
+      pasosDe(rama).forEach((p) => p.toggleAttribute('data-on', true));
+    };
+
+    /** Recorre la rama de arriba abajo sin esperar al scroll. */
+    const reproducir = (indice: number) => {
+      const rama = ramas[indice];
+      cancelAnimationFrame(raf);
+      recorridas.add(indice);
+      if (reduce) return completar(rama);
+
+      const alto = rama.getBoundingClientRect().height;
+      const duracion = Math.min(2600, 900 + alto * 0.9);
+      const inicio = performance.now();
+      const cuadro = (ahora: number) => {
+        const k = Math.min(1, (ahora - inicio) / duracion);
+        recorrer(rama, k * alto + 30);
+        if (k < 1 && actual === indice) raf = requestAnimationFrame(cuadro);
+        else if (actual === indice) completar(rama);
+      };
+      raf = requestAnimationFrame(cuadro);
+    };
+
+    const pintarPaginacion = () => {
+      botones.forEach((b, i) => {
+        if (i === actual) b.setAttribute('aria-current', 'true');
+        else b.removeAttribute('aria-current');
+      });
+      flechas.forEach((f) => {
+        const destino = actual + Number(f.dataset.ir);
+        f.disabled = destino < 0 || destino >= ramas.length;
+      });
+      if (comando) comando.textContent = `rama/${ramas[actual].dataset.anio}`;
+    };
+
+    const irA = async (indice: number) => {
+      if (ocupado || indice === actual || indice < 0 || indice >= ramas.length) return;
+      ocupado = true;
+      cancelAnimationFrame(raf);
+
+      // el panel se desmonta, cambia de rama y se vuelve a ensamblar
+      panel.dataset.nano = 'fuera';
+      actual = indice;
+      pintarPaginacion();
+      await espera(520);
+
+      ramas.forEach((r, i) => {
+        r.toggleAttribute('data-activa', i === indice);
+        if (i === indice) {
+          r.style.setProperty('--avance', '0');
+          pasosDe(r).forEach((p) => p.removeAttribute('data-on'));
+        }
+      });
+      // si el panel quedó fuera de la vista, se vuelve a su inicio
+      if (raiz.getBoundingClientRect().top < 0) {
+        raiz.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      }
+
+      delete panel.dataset.nano;
+      await espera(420);
+      reproducir(indice);
+      ocupado = false;
+    };
+
+    raiz.addEventListener('click', (e) => {
+      const boton = (e.target as HTMLElement).closest<HTMLElement>('[data-pagina], [data-ir]');
+      if (!boton) return;
+      if (boton.dataset.pagina !== undefined) void irA(Number(boton.dataset.pagina));
+      else void irA(actual + Number(boton.dataset.ir));
     });
-  });
+
+    // con el script vivo solo se muestra la rama activa; sin él, se ven todas
+    raiz.toggleAttribute('data-vivo', true);
+    pintarPaginacion();
+
+    if (reduce) {
+      completar(ramas[0]);
+      recorridas.add(0);
+    } else {
+      // la primera rama se recorre con el scroll: la cabeza va al 74 % de la ventana
+      let pendiente = false;
+      const medir = () => {
+        pendiente = false;
+        if (recorridas.has(actual)) return;
+        const rama = ramas[actual];
+        recorrer(rama, window.innerHeight * 0.74 - rama.getBoundingClientRect().top);
+      };
+      const pedir = () => {
+        if (pendiente) return;
+        pendiente = true;
+        requestAnimationFrame(medir);
+      };
+      window.addEventListener('scroll', pedir, { passive: true });
+      window.addEventListener('resize', pedir, { passive: true });
+      medir();
+    }
+  }
 </script>
+
+<style>
+  /* ---------- ventana ---------- */
+  .exp {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(7, 10, 20, 0.88);
+    box-shadow: 0 40px 100px -50px rgba(4, 48, 207, 0.6);
+    overflow: hidden;
+    scroll-margin-top: 16px;
+  }
+  .exp__barra {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.035);
+    font-family: var(--mono);
+  }
+  .exp__luces { display: flex; gap: 7px; }
+  .exp__luces i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; }
+  .exp__luces i:nth-child(2) { background: #febc2e; }
+  .exp__luces i:nth-child(3) { background: #28c840; }
+  .exp__titulo { flex: 1; text-align: center; font-size: 12px; color: var(--mute); }
+  .exp__resumen { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); }
+  @media (max-width: 640px) {
+    .exp__resumen { display: none; }
+  }
+
+  .exp__cuerpo { padding: clamp(16px, 3vw, 36px); }
+  .exp__comando {
+    margin-bottom: clamp(18px, 2.4vw, 26px);
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--texto);
+    overflow-wrap: anywhere;
+  }
+  .exp__prompt { color: var(--mute); }
+  .exp__prompt b { font-weight: 500; color: var(--verde); }
+  .exp__prompt i { font-style: normal; color: var(--acento); }
+
+  /* ---------- paginación por año ---------- */
+  .pag {
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 1.4vw, 16px);
+    margin-bottom: clamp(22px, 3vw, 36px);
+    padding: 12px clamp(8px, 1.6vw, 18px);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  /* sin script no hay nada que paginar: se ven todas las ramas */
+  .exp:not([data-vivo]) .pag { display: none; }
+
+  .pag__anios {
+    position: relative;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* la línea que une los años, a la altura de los rombos */
+  .pag__anios::before {
+    content: '';
+    position: absolute;
+    inset-inline: 12%;
+    top: 13px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 5px, transparent 5px 11px);
+  }
+  .pag__anios li { position: relative; flex: 1; display: flex; justify-content: center; }
+
+  .pag__anio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 4px clamp(4px, 1vw, 14px);
+    border: 0;
+    background: none;
+    color: var(--mute);
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  .pag__rombo {
+    width: 18px;
+    height: 18px;
+    border: 2px solid color-mix(in srgb, var(--tinte) 45%, transparent);
+    background: var(--fondo);
+    transform: rotate(45deg);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+  }
+  .pag__anio b { font-size: clamp(15px, 1.7vw, 20px); font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+  .pag__anio small {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .pag__anio:hover { color: var(--texto); }
+  .pag__anio:hover .pag__rombo { border-color: var(--tinte); transform: rotate(45deg) scale(1.15); }
+  .pag__anio[aria-current] { color: var(--tinte); }
+  .pag__anio[aria-current] .pag__rombo {
+    border-color: var(--tinte);
+    background: var(--tinte);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--tinte) 18%, transparent), 0 0 20px var(--tinte);
+    transform: rotate(135deg) scale(1.2);
+  }
+  @media (max-width: 520px) {
+    .pag__anio small { display: none; }
+  }
+
+  .pag__flecha {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: none;
+    color: var(--texto);
+    cursor: pointer;
+    transition: color 0.25s, border-color 0.25s, opacity 0.25s;
+  }
+  .pag__flecha svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .pag__flecha:hover:not(:disabled) { color: var(--acento); border-color: var(--acento); }
+  .pag__flecha:disabled { opacity: 0.25; cursor: default; }
+
+  /* ---------- panel con ensamblaje nano ---------- */
+  .panel {
+    --nano: 150%;
+    position: relative;
+    transition: --nano 1.7s cubic-bezier(0.5, 0, 0.3, 1);
+  }
+  .panel[data-nano='fuera'] {
+    --nano: -2%;
+    transition: --nano 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .grafo {
+    /* aire para que la máscara no recorte el rombo ni los brillos del borde */
+    padding: 12px 0 6px;
+    /* lo ya ensamblado queda por encima del frente; lo demás aún no existe */
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(var(--nano) - 12%), transparent var(--nano));
+    mask-image: linear-gradient(to bottom, #000 calc(var(--nano) - 12%), transparent var(--nano));
+  }
+  /* las celdas: una franja de hexágonos que viaja con el frente */
+  .panel__nano {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: var(--hex) 0 0 / 26px auto;
+    -webkit-mask-image: linear-gradient(to bottom, transparent calc(var(--nano) - 30%), #000 calc(var(--nano) - 3%), #000 var(--nano), transparent calc(var(--nano) + 2%));
+    mask-image: linear-gradient(to bottom, transparent calc(var(--nano) - 30%), #000 calc(var(--nano) - 3%), #000 var(--nano), transparent calc(var(--nano) + 2%));
+    animation: nano-chispa 0.14s steps(2) infinite;
+  }
+  /* el haz que va soldando las celdas */
+  .panel__haz {
+    position: absolute;
+    inset-inline: 0;
+    top: var(--nano);
+    height: 2px;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, #b9ecff 20%, #fff 50%, #b9ecff 80%, transparent);
+    box-shadow: 0 0 16px 2px rgba(94, 211, 255, 0.85);
+  }
+  /* en reposo el frente está fuera del panel: no se pinta nada */
+  .panel:not([data-nano]) .panel__haz { opacity: 0; transition: opacity 0.2s 1s; }
+  .panel[data-nano] .panel__haz { opacity: 1; }
+
+  /* ---------- rama (año) ----------
+     `--eje` es la posición horizontal del tronco: centrado en escritorio,
+     pegado a la izquierda en móvil. */
+  .rama {
+    --eje: 50%;
+    --avance: 0;
+    position: relative;
+    display: grid;
+    gap: clamp(22px, 2.6vw, 34px);
+  }
+  .rama + .rama { margin-top: clamp(26px, 3vw, 40px); }
+  [data-vivo] .rama:not([data-activa]) { display: none; }
+  @media (max-width: 860px) {
+    .rama { --eje: 13px; }
+  }
+
+  .rama__tronco {
+    position: absolute;
+    inset-block: 12px;
+    left: var(--eje);
+    width: 2px;
+    margin-left: -1px;
+    background: repeating-linear-gradient(rgba(255, 255, 255, 0.16) 0 5px, transparent 5px 11px);
+  }
+  /* tramo recorrido, con la cabeza encendida en su extremo */
+  .rama__tronco i {
+    position: absolute;
+    inset: 0 0 auto;
+    height: calc(var(--avance) * 100%);
+    background: linear-gradient(#fff, var(--tinte) 60px);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--tinte) 70%, transparent);
+  }
+  .rama__tronco i::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--tinte) 30%, transparent), 0 0 18px 4px var(--tinte);
+  }
+  /* paquetes que bajan por el tronco mientras la sección está viva */
+  [data-vivo] .rama__tronco::after {
+    content: '';
+    position: absolute;
+    left: -1px;
+    width: 4px;
+    height: 34px;
+    border-radius: 2px;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.85));
+    animation: bajar 3.4s linear infinite;
+  }
+  @keyframes bajar {
+    from { top: 0; opacity: 0; }
+    10%, 90% { opacity: 1; }
+    to { top: 100%; opacity: 0; }
+  }
+
+  /* extremos de la rama */
+  .rama__hito { position: relative; display: flex; justify-content: center; }
+  .rama__etiqueta {
+    position: relative;
+    padding: 5px 14px;
+    border: 1px solid var(--line-fuerte);
+    border-radius: 999px;
+    background: var(--fondo);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--mute);
+  }
+  .rama__etiqueta b { font-weight: 600; color: var(--acento); }
+  .rama__hito--fin .rama__etiqueta { opacity: 0.45; transition: opacity 0.5s, border-color 0.5s, color 0.25s; }
+  .rama__hito--fin[data-on] .rama__etiqueta { opacity: 1; border-color: var(--tinte); }
+  .rama__hito--fin .rama__etiqueta b { color: var(--tinte); }
+  .rama__siguiente { cursor: pointer; }
+  .rama__siguiente:hover { color: var(--texto); box-shadow: 0 0 18px color-mix(in srgb, var(--tinte) 50%, transparent); }
+  /* el salto a la rama siguiente solo tiene sentido con la paginación viva */
+  .exp:not([data-vivo]) .rama__siguiente { display: none; }
+  @media (max-width: 860px) {
+    .rama__hito { justify-content: flex-start; }
+  }
+
+  .rama__anio {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  /* el rombo de decisión de un diagrama de flujo */
+  .rama__rombo {
+    width: 26px;
+    height: 26px;
+    border: 2px solid color-mix(in srgb, var(--tinte) 35%, transparent);
+    background: var(--fondo);
+    transform: rotate(45deg) scale(0.7);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, background-color 0.4s, box-shadow 0.4s;
+  }
+  .rama__anio[data-on] .rama__rombo {
+    border-color: var(--tinte);
+    background: color-mix(in srgb, var(--tinte) 30%, var(--fondo));
+    box-shadow: 0 0 22px color-mix(in srgb, var(--tinte) 70%, transparent);
+    transform: rotate(45deg) scale(1);
+  }
+  .rama__nombre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 16px 8px;
+    border-radius: 10px;
+    background: var(--fondo);
+    line-height: 1;
+  }
+  .rama__nombre .mono-num {
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: color-mix(in srgb, var(--tinte) 40%, var(--mute));
+    transition: color 0.5s, text-shadow 0.5s;
+  }
+  .rama__anio[data-on] .mono-num { color: var(--tinte); text-shadow: 0 0 26px color-mix(in srgb, var(--tinte) 55%, transparent); }
+  .rama__nombre small {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  @media (max-width: 860px) {
+    .rama__anio { flex-direction: row; align-items: center; gap: 14px; }
+    .rama__nombre { align-items: flex-start; padding-left: 0; background: none; }
+  }
+
+  /* ---------- commit ---------- */
+  .rama__commits { display: grid; gap: clamp(20px, 2.4vw, 30px); margin: 0; padding: 0; list-style: none; }
+
+  .commit {
+    --cable: clamp(28px, 4vw, 56px);
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .commit--der .commit__tarjeta { grid-column: 2; margin-left: var(--cable); }
+  .commit--izq .commit__tarjeta { grid-column: 1; margin-right: var(--cable); }
+
+  .commit__nodo {
+    position: absolute;
+    left: var(--eje);
+    top: 24px;
+    z-index: 1;
+    width: 14px;
+    height: 14px;
+    margin: -7px 0 0 -7px;
+    border: 2px solid color-mix(in srgb, var(--tinte) 40%, transparent);
+    border-radius: 50%;
+    background: var(--fondo);
+    transition: border-color 0.4s, background-color 0.4s, box-shadow 0.4s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .commit[data-on] .commit__nodo {
+    border-color: var(--tinte);
+    background: var(--tinte);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--tinte) 20%, transparent), 0 0 18px var(--tinte);
+    transform: scale(1.15);
+  }
+
+  /* el cable que une el nodo con su tarjeta: se tiende desde el tronco */
+  .commit__cable {
+    position: absolute;
+    top: 24px;
+    width: var(--cable);
+    height: 2px;
+    margin-top: -1px;
+    background: linear-gradient(90deg, var(--tinte), color-mix(in srgb, var(--tinte) 35%, transparent));
+    transform: scaleX(0);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  }
+  .commit--der .commit__cable { left: var(--eje); transform-origin: left; }
+  .commit--izq .commit__cable {
+    right: calc(100% - var(--eje));
+    transform-origin: right;
+    background: linear-gradient(270deg, var(--tinte), color-mix(in srgb, var(--tinte) 35%, transparent));
+  }
+  .commit[data-on] .commit__cable { transform: scaleX(1); }
+
+  .commit__tarjeta {
+    position: relative;
+    padding: clamp(16px, 2vw, 22px);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(11, 15, 28, 0.9);
+    transition:
+      opacity 0.7s ease 0.2s,
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+      border-color 0.4s,
+      box-shadow 0.4s;
+  }
+  /* solo se oculta si el script está vivo: sin JS todo queda a la vista */
+  [data-vivo] .commit:not([data-on]) .commit__tarjeta { opacity: 0; }
+  [data-vivo] .commit--der:not([data-on]) .commit__tarjeta { transform: translateX(28px); }
+  [data-vivo] .commit--izq:not([data-on]) .commit__tarjeta { transform: translateX(-28px); }
+  .commit[data-on] .commit__tarjeta { border-color: color-mix(in srgb, var(--tinte) 35%, transparent); }
+  .commit__tarjeta:hover {
+    border-color: var(--tinte);
+    box-shadow: 0 20px 50px -28px var(--tinte);
+  }
+
+  .commit__cabeza {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px 14px;
+    margin-bottom: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+  .commit__hash { color: #ffb257; }
+  .commit__fecha {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tinte) 14%, transparent);
+    letter-spacing: 0.06em;
+    color: var(--tinte);
+  }
+  /* punto verde de «sigo aquí» */
+  .commit__vivo {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--verde);
+    box-shadow: 0 0 8px var(--verde);
+    animation: latir 1.6s ease-in-out infinite;
+  }
+  @keyframes latir { 50% { opacity: 0.35; } }
+
+  .commit__rol { font-size: clamp(18px, 1.7vw, 21px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; color: var(--texto); }
+  .commit__empresa { margin-top: 4px; font-family: var(--mono); font-size: 12.5px; color: var(--tinte); }
+  .commit__modalidad {
+    margin-top: 3px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  .commit__descripcion { margin-top: 12px; font-size: 14.5px; line-height: 1.65; color: var(--mute); text-wrap: pretty; }
+  .commit__puntos {
+    display: grid;
+    gap: 7px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--mute);
+  }
+  .commit__puntos li { position: relative; padding-left: 18px; text-wrap: pretty; }
+  .commit__puntos li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    font-family: var(--mono);
+    font-weight: 600;
+    color: var(--verde);
+  }
+  .commit__logro {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 10px;
+    border-left: 2px solid var(--verde);
+    background: rgba(74, 222, 128, 0.08);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--verde);
+  }
+
+  .commit__pie {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .commit__tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .commit__tags li {
+    padding: 2px 9px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--texto);
+  }
+  .commit__enlace {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--tinte);
+    transition: color 0.25s, letter-spacing 0.25s;
+  }
+  .commit__enlace:hover { color: #fff; letter-spacing: 0.22em; }
+
+  /* en escritorio los commits se entrelazan a los dos lados del tronco, como
+     las ramas de un diagrama, en vez de dejar media fila vacía */
+  @media (min-width: 861px) {
+    .commit + .commit { margin-top: -110px; }
+  }
+
+  /* móvil: una sola columna a la derecha del tronco */
+  @media (max-width: 860px) {
+    .commit { --cable: 22px; grid-template-columns: minmax(0, 1fr); }
+    .commit--der .commit__tarjeta,
+    .commit--izq .commit__tarjeta { grid-column: 1; margin: 0 0 0 calc(var(--eje) + var(--cable)); }
+    .commit--izq .commit__cable {
+      left: var(--eje);
+      right: auto;
+      transform-origin: left;
+      background: linear-gradient(90deg, var(--tinte), color-mix(in srgb, var(--tinte) 35%, transparent));
+    }
+    [data-vivo] .commit--izq:not([data-on]) .commit__tarjeta { transform: translateX(28px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .panel,
+    .panel[data-nano='fuera'],
+    .commit__tarjeta,
+    .commit__cable,
+    .commit__nodo,
+    .rama__rombo { transition: none; }
+    .panel__nano,
+    .commit__vivo { animation: none; }
+  }
+</style>

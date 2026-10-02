@@ -1,0 +1,172 @@
+---
+import type { Proyecto } from '../data/proyectos';
+
+interface Props {
+  proyecto: Proyecto;
+  indice: number;
+  /** ocupa toda la fila, con la captura a un lado */
+  destacada?: boolean;
+  /** entra con el revelado al hacer scroll */
+  revelar?: boolean;
+}
+
+const { proyecto, indice, destacada = false, revelar = false } = Astro.props;
+// los sitios en producción abren fuera; los casos, su página de detalle
+const externo = proyecto.url.startsWith('http');
+const numero = String(indice + 1).padStart(2, '0');
+const busqueda = [proyecto.nombre, proyecto.dominio, proyecto.descripcion, ...proyecto.tags].join(' ').toLowerCase();
+---
+
+<li
+  class:list={['web', { rv: revelar, 'web--destacada': destacada }]}
+  style={revelar ? `transition-delay:${(indice % 2) * 90}ms` : undefined}
+  data-proyecto
+  data-busqueda={busqueda}
+>
+  <a
+    href={proyecto.url}
+    target={externo ? '_blank' : undefined}
+    rel={externo ? 'noopener noreferrer' : undefined}
+    class="web__enlace"
+  >
+    <div class="web__ventana">
+      <div class="web__barra" aria-hidden="true">
+        <span class="web__luces"><i></i><i></i><i></i></span>
+        <span class="web__url">{proyecto.dominio}</span>
+      </div>
+      <div class="web__captura">
+        <img
+          src={proyecto.imagen}
+          alt={`Captura de pantalla de ${proyecto.nombre}`}
+          width="1440"
+          height="900"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="web__visitar">{externo ? 'Visitar sitio ↗' : 'Ver el caso →'}</span>
+      </div>
+    </div>
+
+    <div class="web__info">
+      <span class="hud"><span class="mono-num">{numero}</span> · {externo ? 'En producción' : 'Caso de estudio'}</span>
+      <h3 class="web__nombre">{proyecto.nombre}</h3>
+      <p class="web__descripcion">{proyecto.descripcion}</p>
+      <ul class="web__tags">
+        {proyecto.tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+    </div>
+  </a>
+</li>
+
+<style>
+  .web__enlace {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(11, 15, 28, 0.8);
+    overflow: hidden;
+    color: var(--texto);
+    transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+  }
+  /* filo superior que se dibuja al hover */
+  .web__enlace::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 2;
+    height: 2px;
+    background: linear-gradient(90deg, var(--azul-claro), var(--celeste));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .web__enlace:hover,
+  .web__enlace:focus-visible {
+    border-color: var(--line-fuerte);
+    transform: translateY(-4px);
+    box-shadow: 0 30px 60px -30px rgba(4, 48, 207, 0.7);
+  }
+  .web__enlace:hover::before,
+  .web__enlace:focus-visible::before { transform: scaleX(1); }
+
+  .web__barra {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.035);
+  }
+  .web__luces { display: flex; gap: 6px; }
+  .web__luces i { width: 9px; height: 9px; border-radius: 50%; background: #ff5f57; }
+  .web__luces i:nth-child(2) { background: #febc2e; }
+  .web__luces i:nth-child(3) { background: #28c840; }
+  .web__url {
+    flex: 1;
+    padding: 3px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--mute);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .web__captura { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--fondo); }
+  .web__captura img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .web__enlace:hover .web__captura img { transform: scale(1.04); }
+  .web__visitar {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    padding: 8px 14px;
+    background: var(--celeste);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fondo);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .web__enlace:hover .web__visitar,
+  .web__enlace:focus-visible .web__visitar { opacity: 1; transform: none; }
+  @media (hover: none) {
+    .web__visitar { opacity: 1; transform: none; }
+  }
+
+  .web__info { display: flex; flex-direction: column; gap: 10px; padding: clamp(16px, 2vw, 24px); }
+  .web__nombre { font-size: clamp(20px, 2vw, 26px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .web__descripcion { font-size: 14.5px; line-height: 1.6; color: var(--mute); text-wrap: pretty; }
+  .web__tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; padding: 0; list-style: none; }
+  .web__tags li {
+    padding: 3px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--texto);
+  }
+
+  /* la primera ocupa toda la fila: captura a la izquierda, ficha a la derecha */
+  @media (min-width: 761px) {
+    .web--destacada { grid-column: 1 / -1; }
+    .web--destacada .web__enlace { flex-direction: row; }
+    .web--destacada .web__ventana { flex: 1.5; min-width: 0; border-right: 1px solid var(--line); }
+    .web--destacada .web__info { flex: 1; justify-content: center; }
+    .web--destacada .web__nombre { font-size: clamp(26px, 3vw, 38px); }
+  }
+</style>

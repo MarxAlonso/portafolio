@@ -8,21 +8,25 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
+    "preview:cf": "pnpm build && wrangler dev",
+    "deploy:cf": "pnpm build && wrangler deploy",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.5",
-    "@astrojs/react": "^4.4.0",
-    "@astrojs/tailwind": "^6.0.2",
+    "@astrojs/check": "^0.9.10",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource-variable/onest": "^5.0.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "swiper": "^11.0.7",
-    "tailwindcss": "^3.4.9",
-    "typescript": "^5.4.2"
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.13",
-    "astro": "^5.14.8"
+    "astro": "^7.3.5",
+    "simple-icons": "^16.33.0",
+    "wrangler": "^4.145.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

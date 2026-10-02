@@ -3,9 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Social from '../components/Social.astro';
 import Badge from '../components/Badge.astro';
 import Linkedin from '../components/icons/Linkedin.astro';
-import Facebook from '../components/icons/Facebook.astro';
 import Gmail from '../components/icons/Gmail.astro';
-import Briefcase from '../components/icons/Briefcase.astro';
 import Experience from '../components/Experience.astro';
 import Projects from '../components/Projects.astro';
 import SectionContainer from '../components/SectionContainer.astro';
@@ -16,65 +14,59 @@ import ProgramarIcon from '../components/icons/ProgramarIcon.astro';
 import Frameworks from '../components/Frameworks.astro';
 import EstilosGenial from '../components/EstilosFrameworks/EstilosGenial.astro';
 import ContactoIcon from '../components/icons/ContactoIcon.astro';
+import Hero from '../components/Hero.astro';
+import Terminal from '../components/Terminal.astro';
+import WebProjects from '../components/WebProjects.astro';
+
+const DEMOS = [
+	['MarxInfoDev', 'https://marx-infodev.netlify.app'],
+	['Torito Grill', 'https://toritogrill-react.pages.dev/'],
+	['Mini Tareas', 'https://marxdev-minitareas.netlify.app'],
+	['Modelos Web Marx', 'https://modelos-web-mrx.netlify.app/'],
+	['Restaurant API Marx', 'https://restaurant-api-smoky.vercel.app/'],
+];
 ---
 <Layout title="Portafolio | Marx Chipana — Ingeniero de Software Full-Stack" description="Desarrollo web profesional con React, Next.js, NestJS, FastAPI, Node.js, Go y WordPress. 3 años de experiencia creando aplicaciones web interactivas y responsivas." >
-	<main class="px-4" id="sobremi">
-		<SectionContainer class="py-36 pb-32">
-			<img class="rounded-full w-15 h-12 mb-4 animate-fadeIn" src="https://i.blogs.es/66b2a4/photo-1511367461989-f85a21fda167/1366_2000.jpeg" alt="Logo" />
-			<h1 class="text-white text-2xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10 animate-fadeIn">Marx Chipana <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="flex justify-center items-center"><Badge>Disponible para trabajar</Badge></a></h1>
-			<h2 class="text-xl text-white lg:text-2xl opacity-90 text-wrap max-w-[900px] animate-fadeIn leading-relaxed">
-  <span>3 años de experiencia como </span><span class="text-yellow-200/90">Ingeniero de Software</span>.<span class="text-red-100/90"> De Lima, Perú</span>.<br class="hidden sm:block" />
-  <span class="opacity-85 text-white">
-    Desarrollo web full-stack: frontend interactivo y responsive con 
-    <span class="text-cyan-300">React</span>, <span class="text-cyan-300">Next.js</span> y <span class="text-cyan-300">Astro</span>;
-    backend escalable con <span class="text-green-300">NestJS</span>, <span class="text-green-300">FastAPI</span>, <span class="text-green-300">Node.js</span> y <span class="text-green-300">Go</span>.
-    Además, creo sitios profesionales en <span class="text-purple-300">WordPress</span> con <span class="text-purple-300">Elementor</span> y <span class="text-purple-300">Divi</span>.
-  </span>
-</h2>
-			<nav class="flex gap-4 mt-8 flex-wrap">
-				<Social href="https://www.linkedin.com/in/marx-alonso-chipana" class="animate-fadeIn">
-					<Linkedin class="size-4 md:size-6 text-white"/>
-					LinkedIn
-				</Social>
-				<Social class="animate-fadeIn"><!-- href="mailto:marxchip99@gmail.com" -->
-					<Gmail class="size-4 md:size-6 text-white"/>
-					marxchip99@gmail.com
-				</Social>				
-				<Social class="animate-fadeIn"><!--href="https://api.whatsapp.com/send?phone=51944603274" -->
-					<WhatsApp class="size-5 md:size-6 text-white"/>
-					+51922061911
-				</Social>
-				<Social href="https://github.com/MarxAlonso" class="animate-fadeIn">
-					<Github class="size-4 md:size-6 text-white"/>
-					Marx Alonso
-				</Social>
-			</nav>
-			<br>
-			<span class="opacity-85 text-white">Mis paginas web: </span>
-			<nav class="flex gap-4 mt-8 flex-wrap">
-				<a href="https://marx-infodev.netlify.app" target="_blank" rel="noopener"
-				class="relative px-6 py-3 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_12px_#00f6ff] before:absolute before:inset-0 before:border before:border-white before:rounded-lg before:transition-all before:duration-300 hover:before:border-cyan-900">
-				MarxInfoDev
-				</a>
-				<a href="https://toritogrill-react.pages.dev/" target="_blank" rel="noopener"
-				class="relative px-6 py-3 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_12px_#00f6ff] before:absolute before:inset-0 before:border before:border-white before:rounded-lg before:transition-all before:duration-300 hover:before:border-cyan-900">
-				Torito Grill
-				</a>
-				<a href="https://marxdev-minitareas.netlify.app" target="_blank" rel="noopener"
-				class="relative px-6 py-3 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_12px_#00f6ff] before:absolute before:inset-0 before:border before:border-white before:rounded-lg before:transition-all before:duration-300 hover:before:border-cyan-900">
-				Mini Tareas
-				</a>
-				</a>
-				<a href="https://modelos-web-mrx.netlify.app/" target="_blank" rel="noopener"
-				class="relative px-6 py-3 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_12px_#00f6ff] before:absolute before:inset-0 before:border before:border-white before:rounded-lg before:transition-all before:duration-300 hover:before:border-cyan-900">
-				Modelos Web Marx
-				</a>
-				<a href="https://restaurant-api-smoky.vercel.app/" target="_blank" rel="noopener"
-				class="relative px-6 py-3 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_12px_#00f6ff] before:absolute before:inset-0 before:border before:border-white before:rounded-lg before:transition-all before:duration-300 hover:before:border-cyan-900">
-				Restaurant API Marx
-				</a>
-			</nav>
-		</SectionContainer>
+	<Hero />
+	<main class="px-4">
+		<section id="sobremi" class="ancho pt-20 md:pt-28 pb-24">
+			<header class="rv mb-10 max-w-[760px]">
+				<span class="hud">~/sobre-mi</span>
+				<h2 class="titulo-seccion mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+					<span>Hola, soy <em>Marx</em></span>
+					<a href="https://www.linkedin.com/in/marx-alonso-chipana" target="_blank" rel="noopener" class="flex justify-center items-center normal-case tracking-normal"><Badge>Disponible para trabajar</Badge></a>
+				</h2>
+				<p class="mt-6 text-lg lg:text-xl text-white/90 leading-relaxed">
+					<span>3 años de experiencia como </span><span class="text-yellow-200/90">Ingeniero de Software</span>.<span class="text-red-100/90"> De Lima, Perú</span>.
+					Desarrollo web full-stack: frontend interactivo y responsive con{' '}
+					<span class="text-cyan-300">React</span>, <span class="text-cyan-300">Next.js</span> y <span class="text-cyan-300">Astro</span>;
+					backend escalable con <span class="text-green-300">NestJS</span>, <span class="text-green-300">FastAPI</span>, <span class="text-green-300">Node.js</span> y <span class="text-green-300">Go</span>.
+					Además, creo sitios profesionales en <span class="text-purple-300">WordPress</span> con <span class="text-purple-300">Elementor</span> y <span class="text-purple-300">Divi</span>.
+				</p>
+				<nav class="flex gap-4 mt-8 flex-wrap">
+					<Social href="https://www.linkedin.com/in/marx-alonso-chipana">
+						<Linkedin class="size-4 md:size-6 text-white"/>
+						LinkedIn
+					</Social>
+					<Social><!-- href="mailto:marxchip99@gmail.com" -->
+						<Gmail class="size-4 md:size-6 text-white"/>
+						marxchip99@gmail.com
+					</Social>
+					<Social><!--href="https://api.whatsapp.com/send?phone=51944603274" -->
+						<WhatsApp class="size-5 md:size-6 text-white"/>
+						+51922061911
+					</Social>
+					<Social href="https://github.com/MarxAlonso">
+						<Github class="size-4 md:size-6 text-white"/>
+						Marx Alonso
+					</Social>
+				</nav>
+			</header>
+			<div class="rv">
+				<p class="hud hud--mute mb-4">Terminal interactiva · escribe un comando o toca una etapa</p>
+				<Terminal />
+			</div>
+		</section>
 		<SectionContainer>
 			<a 
 			class="text-3xl font-semibold mb-6 flex gap-x-3 items-center bg-blue-950 text-white py-3 px-6 w-fit max-w-xs rounded-lg shadow-lg hover:bg-cyan-950 transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out"
@@ -82,13 +74,16 @@ import ContactoIcon from '../components/icons/ContactoIcon.astro';
 			<ContactoIcon class="w-7 h-7" /> Contáctame
 			</a>
 		</SectionContainer>		
-		<SectionContainer id="experiencia">
-			<h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
-				<Briefcase class="size-7"/>
-				Experiencia Laboral
-			</h2>
+		<section id="experiencia" class="ancho pb-24">
+			<header class="rv mb-10">
+				<span class="hud">~/experiencia · git log --graph</span>
+				<h2 class="titulo-seccion mt-4">Experiencia <em>laboral</em></h2>
+				<p class="mt-5 max-w-[62ch] text-white/70 leading-relaxed">
+					Mi historial como un grafo de commits: una rama por año y un commit por cada trabajo. Cambia de año en la paginación y la rama se ensambla sola.
+				</p>
+			</header>
 			<Experience />
-		</SectionContainer>
+		</section>
 		<SectionContainer>
 			<h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
 				<ProgramarIcon class="size-7"/>
@@ -103,10 +98,28 @@ import ContactoIcon from '../components/icons/ContactoIcon.astro';
 			</h2>
 			<EstilosGenial />
 		</SectionContainer>
-		<SectionContainer id="proyectos">
+		<section id="proyectos" class="ancho pb-24">
+			<header class="rv mb-10">
+				<span class="hud">~/proyectos · webs en producción</span>
+				<h2 class="titulo-seccion mt-4">Webs que <em>desarrollé</em></h2>
+				<p class="mt-5 max-w-[62ch] text-white/70 leading-relaxed">
+					Sitios reales, en línea y en uso: los diseñé, programé y desplegué. Haz clic en cualquiera para visitarlo.
+				</p>
+			</header>
+			<WebProjects />
+			<div class="rv mt-10">
+				<p class="hud hud--mute mb-4">Más demos</p>
+				<nav class="flex gap-3 flex-wrap">
+					{DEMOS.map(([nombre, url]) => (
+						<a href={url} target="_blank" rel="noopener" class="demo">{nombre} ↗</a>
+					))}
+				</nav>
+			</div>
+		</section>
+		<SectionContainer>
 			<h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
 				<ProjectsFull class="size-7"/>
-				Proyectos
+				Otros proyectos
 			</h2>
 			<Projects />
 		</SectionContainer>
@@ -115,20 +128,40 @@ import ContactoIcon from '../components/icons/ContactoIcon.astro';
 		</SectionContainer>
 	</main>
 </Layout>
+<script>
+	// revelado al entrar en viewport: sin JS nada queda oculto
+	document.documentElement.classList.add('js-rv');
+	const observador = new IntersectionObserver(
+		(entradas) => {
+			for (const entrada of entradas) {
+				if (!entrada.isIntersecting) continue;
+				(entrada.target as HTMLElement).dataset.in = 'true';
+				observador.unobserve(entrada.target);
+			}
+		},
+		{ threshold: 0.08 },
+	);
+	document.querySelectorAll('.rv').forEach((el) => observador.observe(el));
+</script>
 <style>
-	@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-fadeIn {
-    animation: fadeIn 1.5s ease-out forwards;
-}
-
+	.ancho {
+		width: 100%;
+		max-width: 1120px;
+		margin-inline: auto;
+	}
+	.demo {
+		padding: 9px 16px;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		font-family: var(--mono);
+		font-size: 12.5px;
+		color: var(--texto);
+		transition: border-color 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
+	}
+	.demo:hover {
+		border-color: var(--acento);
+		color: var(--acento);
+		transform: translateY(-2px);
+		box-shadow: 0 0 14px rgba(94, 211, 255, 0.35);
+	}
 </style>

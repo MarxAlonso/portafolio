@@ -1,77 +1,565 @@
-<header class="fixed top-0 left-0 right-0 z-10">
-    <div class="bg-gray-950/90 backdrop-blur-sm shadow-lg">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-4">
-          <div class="flex-shrink-0">
-            <a href="/" class="block">
-              <img 
-                src="/hacker.png" 
-                alt="Logo" 
-                class="w-10 h-10 md:w-12 md:h-12 object-cover rounded-full transition-transform hover:scale-110"
-              />
-            </a>
-          </div>
-          
-          <nav class="hidden md:flex space-x-8">
-            <a href="/" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm md:text-base">Inicio</a>
-            <a href="/#sobremi" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm md:text-base">Sobre mí</a>
-            <a href="/#experiencia" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm md:text-base">Experiencia</a>
-            <a href="/#proyectos" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm md:text-base">Proyectos</a>
-          </nav>
-  
-          <!-- Menú móvil -->
-          <div class="md:hidden">
-            <button 
-              id="mobile-menu-button" 
-              class="text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-lg p-2"
-              aria-label="Menu"
-            >
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-  
-        <!-- Menú móvil expandible -->
-        <div id="mobile-menu" class="hidden md:hidden pb-4">
-          <div class="flex flex-col space-y-3">
-            <a href="/" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm px-4 py-2 rounded-lg hover:bg-gray-800">Inicio</a>
-            <a href="/#sobremi" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm px-4 py-2 rounded-lg hover:bg-gray-800">Sobre mí</a>
-            <a href="/#experiencia" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm px-4 py-2 rounded-lg hover:bg-gray-800">Experiencia</a>
-            <a href="/#proyectos" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm px-4 py-2 rounded-lg hover:bg-gray-800">Proyectos</a>
-          </div>
+---
+const MENU = [
+  { nombre: 'Inicio', href: '/' },
+  { nombre: 'Sobre mí', href: '/#sobremi' },
+  { nombre: 'Terminal', href: '/#terminal' },
+  { nombre: 'Experiencia', href: '/#experiencia' },
+  { nombre: 'Proyectos', href: '/#proyectos' },
+  { nombre: 'Contacto', href: '/Contacto' },
+];
+
+const REDES = [
+  { nombre: 'LinkedIn', url: 'https://www.linkedin.com/in/marx-alonso-chipana' },
+  { nombre: 'GitHub', url: 'https://github.com/MarxAlonso' },
+  { nombre: 'Blog', url: 'https://blogmarxingsoftware.blogspot.com/' },
+];
+
+const actual = Astro.url.pathname;
+// sobre el hero del inicio el rail arranca desmontado para no taparlo
+const railInicial = actual === '/' ? 'oculto' : 'visible';
+---
+
+<!-- Barra fija de la izquierda en escritorio: marca, menú y contacto. -->
+<!--
+  Se ensambla y se desmonta como nanotecnología: un frente de celdas
+  hexagonales lo recorre de arriba abajo. `data-estado` lo gobierna el script.
+-->
+<aside class="rail zona-oscura" id="rail" data-rail data-estado={railInicial}>
+  <div class="rail__cuerpo">
+    <a href="/" aria-label="Ir al inicio" class="rail__marca">
+      <img src="/hacker.png" alt="" width="40" height="40" />
+    </a>
+
+    <div class="rail__centro">
+      <button type="button" class="burger" data-menu aria-expanded="false" aria-controls="menu-principal">
+        <span class="visually-hidden">Abrir menú</span>
+        <i></i><i></i><i></i>
+      </button>
+      <span class="hud hud--mute rail__texto" data-menu-texto aria-hidden="true">Menú</span>
+      <button type="button" class="rail__ocultar" data-rail-ocultar aria-label="Ocultar la barra del menú" title="Ocultar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6" /></svg>
+      </button>
+    </div>
+
+    <a href="/Contacto" class="rail__cta">Contáctame</a>
+  </div>
+  <span class="rail__nano" aria-hidden="true"></span>
+  <span class="rail__haz" aria-hidden="true"></span>
+</aside>
+
+<!-- Con el rail desmontado queda este botón para volver a ensamblarlo. -->
+<button type="button" class="nano-boton zona-oscura" data-rail-mostrar aria-controls="rail" aria-label="Mostrar la barra del menú">
+  <i></i><i></i><i></i>
+</button>
+<noscript>
+  <style is:inline>
+    .rail { --nano: 150% !important; visibility: visible !important; pointer-events: auto !important; }
+    .nano-boton { display: none !important; }
+  </style>
+</noscript>
+
+<!-- En móvil el rail desaparece y manda esta barra. -->
+<header class="topbar zona-oscura">
+  <a href="/" aria-label="Ir al inicio" class="topbar__marca">
+    <img src="/hacker.png" alt="" width="34" height="34" />
+    <span>Marx Chipana</span>
+  </a>
+
+  <div class="topbar__acciones">
+    <a href="/Contacto" class="hud topbar__contacto">Contacto</a>
+    <button type="button" class="burger" data-menu aria-expanded="false" aria-controls="menu-principal">
+      <span class="visually-hidden">Abrir menú</span>
+      <i></i><i></i><i></i>
+    </button>
+  </div>
+</header>
+
+<!-- Menú a pantalla completa; lo abren el rail y la topbar. -->
+<div id="menu-principal" class="menu zona-oscura" data-abierto="false" aria-hidden="true">
+  <!-- cierre propio del menú: el del rail queda a la izquierda y lejos -->
+  <button type="button" class="menu__cerrar" data-menu aria-label="Cerrar menú" tabindex="-1">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+    </svg>
+  </button>
+
+  <nav class="menu__nav" aria-label="Menú principal">
+    <ul class="menu__lista">
+      {MENU.map((item, i) => (
+        <li class="menu__item">
+          <a href={item.href} class="menu__enlace" data-activo={actual === item.href}>
+            <span class="hud hud--mute menu__indice">0{i + 1}</span>
+            <span class="menu__texto display">{item.nombre}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="menu__lado">
+      <div class="menu__bloque">
+        <span class="hud">Contacto</span>
+        <ul class="menu__datos">
+          <li>marxchip99@gmail.com</li>
+          <li>+51 922 061 911</li>
+          <li>Lima, Perú</li>
+        </ul>
+        <div class="menu__redes">
+          {REDES.map((r) => (
+            <a href={r.url} target="_blank" rel="noopener noreferrer">{r.nombre}</a>
+          ))}
         </div>
       </div>
+
+      <a href="/Contacto" class="cta cta--azul menu__cta"><i></i>Contáctame</a>
+
+      <p class="menu__claim">
+        Ingeniero de Software Full-Stack. Desarrollo aplicaciones web de punta a punta, del diseño
+        al despliegue.
+      </p>
     </div>
-  </header>
-  
-  <style>
-    body {
-      padding-top: 4rem;
-    }
-  
-    @media (min-width: 768px) {
-      body {
-        padding-top: 5rem;
-      }
-    }
-  </style>
-  
-  <script>
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-  
-    if (mobileMenuButton && mobileMenu) {
-      mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
+  </nav>
+</div>
+
+<script>
+  const menu = document.getElementById('menu-principal');
+  const disparadores = document.querySelectorAll<HTMLButtonElement>('[data-menu]');
+  const texto = document.querySelector<HTMLElement>('[data-menu-texto]');
+
+  /* ---------- rail: se desmonta sobre el hero y se ensambla al bajar ---------- */
+  const rail = document.querySelector<HTMLElement>('[data-rail]');
+  const hero = document.getElementById('hero');
+  // lo que el visitante elige con los botones manda sobre el comportamiento automático
+  let eleccion: 'visible' | 'oculto' | null = null;
+
+  const railPorScroll = () => !hero || window.scrollY > hero.offsetHeight * 0.6;
+  const pintarRail = () => {
+    if (!rail) return;
+    const estado = eleccion ?? (railPorScroll() ? 'visible' : 'oculto');
+    document.documentElement.dataset.rail = estado;
+    if (rail.dataset.estado !== estado) rail.dataset.estado = estado;
+  };
+  const mostrarRail = () => {
+    eleccion = 'visible';
+    pintarRail();
+  };
+
+  if (rail) {
+    pintarRail();
+    window.addEventListener('scroll', pintarRail, { passive: true });
+    document.querySelector('[data-rail-mostrar]')?.addEventListener('click', () => {
+      mostrarRail();
+      rail.querySelector<HTMLElement>('[data-menu]')?.focus({ preventScroll: true });
+    });
+  }
+
+  if (menu && disparadores.length) {
+    let abierto = false;
+
+    document.querySelector('[data-rail-ocultar]')?.addEventListener('click', () => {
+      abierto = false;
+      pintar();
+      eleccion = 'oculto';
+      pintarRail();
+    });
+
+    const pintar = () => {
+      menu.dataset.abierto = String(abierto);
+      menu.setAttribute('aria-hidden', String(!abierto));
+      document.body.style.overflow = abierto ? 'hidden' : '';
+      if (texto) texto.textContent = abierto ? 'Cerrar' : 'Menú';
+      disparadores.forEach((d) => {
+        d.setAttribute('aria-expanded', String(abierto));
+        d.dataset.abierto = String(abierto);
+        // el aspa del propio menú solo existe para cerrar
+        if (d.classList.contains('menu__cerrar')) d.tabIndex = abierto ? 0 : -1;
       });
-  
-      // Cerrar menú al hacer clic en un enlace
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-        });
-      });
-    }
-  </script>
+    };
+
+    const cerrar = () => {
+      if (!abierto) return;
+      abierto = false;
+      pintar();
+    };
+
+    disparadores.forEach((d) =>
+      d.addEventListener('click', () => {
+        abierto = !abierto;
+        // el menú se abre pegado al rail: si estaba desmontado, se ensambla
+        if (abierto && rail?.dataset.estado === 'oculto') mostrarRail();
+        pintar();
+      }),
+    );
+    menu.querySelectorAll('a[href]').forEach((a) => a.addEventListener('click', cerrar));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') cerrar();
+    });
+    pintar();
+  }
+</script>
+
+<style>
+  /* ---------- rail ---------- */
+  .rail {
+    --nano: 150%;
+    position: fixed;
+    inset-block: 0;
+    left: 0;
+    z-index: 80;
+    display: none;
+    width: var(--rail);
+    overflow: hidden;
+    transition: --nano 1.1s cubic-bezier(0.65, 0, 0.35, 1), visibility 0s;
+  }
+  @media (min-width: 760px) {
+    .rail { display: block; }
+  }
+  .rail[data-estado='oculto'] {
+    --nano: -6%;
+    visibility: hidden;
+    pointer-events: none;
+    /* se vuelve invisible solo cuando termina de desmontarse */
+    transition: --nano 0.8s cubic-bezier(0.65, 0, 0.35, 1), visibility 0s 0.8s;
+  }
+
+  .rail__cuerpo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding-block: 22px;
+    border-right: 1px solid var(--line);
+    background: var(--fondo);
+    /* lo ya ensamblado queda por encima del frente; lo demás aún no existe */
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(var(--nano) - 14%), transparent var(--nano));
+    mask-image: linear-gradient(to bottom, #000 calc(var(--nano) - 14%), transparent var(--nano));
+  }
+
+  /* las celdas: una franja de hexágonos que viaja con el frente */
+  .rail__nano {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: var(--hex) 0 0 / 22px auto;
+    -webkit-mask-image: linear-gradient(to bottom, transparent calc(var(--nano) - 34%), #000 calc(var(--nano) - 4%), #000 var(--nano), transparent calc(var(--nano) + 3%));
+    mask-image: linear-gradient(to bottom, transparent calc(var(--nano) - 34%), #000 calc(var(--nano) - 4%), #000 var(--nano), transparent calc(var(--nano) + 3%));
+    animation: nano-chispa 0.14s steps(2) infinite;
+  }
+
+  /* el haz que va soldando las celdas */
+  .rail__haz {
+    position: absolute;
+    inset-inline: 0;
+    top: var(--nano);
+    height: 2px;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, #b9ecff 30%, #fff 50%, #b9ecff 70%, transparent);
+    box-shadow: 0 0 14px 2px rgba(94, 211, 255, 0.85);
+  }
+
+  .rail__ocultar {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    margin-top: 6px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: none;
+    color: var(--mute);
+    cursor: pointer;
+    transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  }
+  .rail__ocultar:hover { color: var(--acento); border-color: var(--acento); transform: translateX(-3px); }
+  .rail__ocultar svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ---------- botón que vuelve a ensamblar el rail ---------- */
+  .nano-boton {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 79;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 48px;
+    height: 54px;
+    border: 0;
+    /* hexágono: la celda de la que nace el rail */
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    background: linear-gradient(160deg, #2f7bff, #5ed3ff);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.4) rotate(-90deg);
+    transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+  }
+  .nano-boton::before {
+    content: '';
+    position: absolute;
+    inset: 1.5px;
+    clip-path: inherit;
+    background: var(--fondo);
+  }
+  .nano-boton i {
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--texto);
+    transition: background-color 0.25s ease, width 0.25s ease;
+  }
+  .nano-boton:hover i { background: var(--acento); }
+  .nano-boton:hover i:nth-child(2) { width: 12px; }
+  @media (min-width: 760px) {
+    .nano-boton { display: flex; }
+  }
+  .rail[data-estado='oculto'] ~ .nano-boton {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0.45s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rail,
+    .rail[data-estado='oculto'],
+    .nano-boton { transition: none; }
+    .rail__nano { animation: none; }
+  }
+
+  .rail__marca img,
+  .topbar__marca img {
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .rail__marca:hover img { transform: scale(1.1); }
+
+  .rail__centro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  /* `vertical-rl` deja el texto leyéndose de arriba abajo; el giro de media
+     vuelta lo pone de abajo arriba, que es como se lee un rail a la izquierda */
+  .rail__texto {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    color: var(--texto);
+  }
+
+  .rail__cta {
+    padding-block: 16px;
+    /* al girar la caja, el filo de arriba queda abajo: se declara al revés
+       para que la línea siga separando el bloque por su parte superior */
+    border-bottom: 1px solid var(--line);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--acento);
+    transition: color 0.25s ease;
+  }
+  .rail__cta:hover { color: var(--texto); }
+
+  /* ---------- topbar ---------- */
+  .topbar {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding-inline: 16px;
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--fondo) 92%, transparent);
+    backdrop-filter: blur(8px);
+  }
+  @media (min-width: 760px) {
+    .topbar { display: none; }
+  }
+  .topbar__marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--texto);
+  }
+  .topbar__acciones { display: flex; align-items: center; gap: 6px; }
+  .topbar__contacto { padding: 9px 12px; border: 1px solid var(--line); }
+
+  /* ---------- botón del menú ---------- */
+  .burger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+  .burger i {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--texto);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, background-color 0.25s ease;
+  }
+  .burger:hover i { background: var(--acento); }
+  .burger[data-abierto='true'] i:nth-child(2) { transform: translateY(7px) rotate(45deg); }
+  .burger[data-abierto='true'] i:nth-child(3) { opacity: 0; }
+  .burger[data-abierto='true'] i:nth-child(4) { transform: translateY(-7px) rotate(-45deg); }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* ---------- menú a pantalla completa ---------- */
+  .menu {
+    position: fixed;
+    inset: 0 0 0 var(--rail);
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    background: var(--fondo);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-2%);
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+    overflow-y: auto;
+  }
+  .menu[data-abierto='true'] {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  @media (max-width: 759px) {
+    .menu { inset: 60px 0 0 0; align-items: flex-start; padding-block: 28px; }
+  }
+
+  .menu__nav {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: clamp(32px, 6vw, 96px);
+    width: 100%;
+    align-items: start;
+    padding: clamp(24px, 4vw, 56px) var(--pad);
+  }
+  @media (max-width: 900px) {
+    .menu__nav { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* `fixed` y no `absolute`: el menú desplaza su contenido en pantallas
+     pequeñas y el aspa debe quedarse donde está */
+  .menu__cerrar {
+    position: fixed;
+    top: clamp(14px, 2vw, 26px);
+    right: clamp(16px, 4vw, 64px);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--line);
+    background: none;
+    color: var(--texto);
+    cursor: pointer;
+    transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  }
+  .menu__cerrar:hover {
+    color: var(--acento);
+    border-color: var(--line-fuerte);
+    transform: rotate(90deg);
+  }
+  .menu__cerrar svg { width: 20px; height: 20px; fill: currentColor; }
+  @media (max-width: 759px) {
+    /* en móvil cierra la hamburguesa de la barra superior, que sigue a la vista */
+    .menu__cerrar { display: none; }
+  }
+
+  .menu__lista { margin: 0; padding: 0; list-style: none; }
+  .menu__item { border-bottom: 1px solid var(--line); }
+  .menu__enlace {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    width: 100%;
+    padding-block: clamp(11px, 1.4vw, 18px);
+    color: var(--texto);
+    transition: color 0.25s ease, padding-left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .menu__enlace:hover { color: var(--acento); padding-left: 12px; }
+  .menu__enlace[data-activo='true'] { color: var(--acento); }
+  .menu__indice { flex: 0 0 auto; }
+  .menu__texto { font-size: clamp(28px, 4.4vw, 56px); }
+
+  /* ---------- columna lateral ---------- */
+  .menu__lado { display: flex; flex-direction: column; gap: 24px; }
+  .menu__bloque { display: flex; flex-direction: column; gap: 14px; }
+
+  .menu__datos {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    color: var(--mute);
+  }
+
+  .menu__redes { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 4px; }
+  .menu__redes a {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--texto);
+    transition: color 0.2s ease;
+  }
+  .menu__redes a:hover { color: var(--acento); }
+
+  .menu__cta { align-self: flex-start; }
+
+  .menu__claim {
+    max-width: 44ch;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--mute);
+  }
+</style>

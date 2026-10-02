@@ -1,0 +1,10 @@
+{
+  // Cloudflare Workers (static assets). Build: `pnpm build` · Deploy: `pnpm deploy:cf`
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portafolio",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

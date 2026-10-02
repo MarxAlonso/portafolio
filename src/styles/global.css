@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Sistema visual: HUD técnico sobre fondo oscuro.
+   Tokens y primitivas que comparten el hero, la terminal y las
+   tarjetas de proyectos.
+   ============================================================ */
+:root {
+  --azul: #0430cf;
+  --azul-claro: #2f7bff;
+  --celeste: #5ed3ff;
+  --verde: #4ade80;
+
+  --mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Mono', Consolas, Menlo, monospace;
+
+  --pad: clamp(20px, 4vw, 64px);
+  /* ancho del rail; en móvil desaparece y manda la barra superior */
+  --rail: 88px;
+
+  --fondo: #05070f;
+  --superficie: #0b0f1c;
+  --superficie-2: #101526;
+  --texto: #e9edf7;
+  --mute: #8b93a8;
+  --line: rgba(255, 255, 255, 0.12);
+  --line-fuerte: rgba(94, 211, 255, 0.35);
+  --acento: #5ed3ff;
+  --acento-contraste: #05070f;
+  --cta-alt-bg: #5ed3ff;
+  --cta-alt-fg: #05070f;
+  --sobre-azul: #ffffff;
+  --trama: rgba(0, 0, 0, 0.22);
+
+  /* celda hexagonal del efecto de ensamblaje (rail y experiencia) */
+  --hex: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='%235ed3ff' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 759px) {
+  :root { --rail: 0px; }
+}
+
+.zona-oscura {
+  color-scheme: dark;
+  color: var(--texto);
+}
+
+/* ---------- Primitivas ---------- */
+
+/* micro tipografía técnica del HUD */
+.hud {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+.hud--mute { color: var(--mute); }
+
+.display {
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.titulo-seccion {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--texto);
+}
+.titulo-seccion em { font-style: normal; color: var(--acento); }
+
+.mono-num {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* titular que sube desde una máscara */
+.mask {
+  display: block;
+  overflow: hidden;
+  /* el padding evita que el recorte coma las tildes de las mayúsculas */
+  padding-top: 0.14em;
+  margin-top: -0.14em;
+}
+.mask > span {
+  display: block;
+  transform: translate3d(0, 105%, 0);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* palabra en contorno que se rellena, como un trazo que se ilumina */
+.fill-word {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  -webkit-text-stroke: 1.4px rgba(94, 211, 255, 0.85);
+}
+.fill-word::after {
+  content: attr(data-word);
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-text-stroke: 0;
+  color: transparent;
+  background-image: linear-gradient(115deg, var(--azul-claro) 0%, var(--acento) 55%, #b9ecff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  clip-path: inset(-0.2em 100% -0.2em 0);
+  animation: fill-x 1.8s cubic-bezier(0.7, 0, 0.2, 1) 1.1s forwards;
+}
+@media (max-width: 759px) {
+  .fill-word { -webkit-text-stroke-width: 0.8px; }
+}
+
+/* revelado al entrar en viewport; solo oculta si el script llegó a cargar */
+.js-rv .rv {
+  opacity: 0;
+  transform: translate3d(0, 38px, 0);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js-rv .rv[data-in='true'] { opacity: 1; transform: none; }
+
+/* ---------- Animaciones ---------- */
+
+/* `--nano` es el frente del ensamblaje «nanotecnológico»: por debajo del 0 %
+   la pieza está desmontada y al 150 % está completa. Se registra como
+   porcentaje para que se pueda animar con una transición. */
+@property --nano {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 150%;
+}
+@keyframes nano-chispa { 50% { opacity: 0.55; } }
+@keyframes drop {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+@keyframes rise { to { transform: none; } }
+@keyframes fill-x { to { clip-path: inset(-0.2em 0 -0.2em 0); } }
+@keyframes fade-in { to { opacity: 1; } }
+
+.anim-rise { animation: rise 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.anim-fade { opacity: 0; animation: fade-in 1s forwards; }
+
+/* botón de acción: mono, versalitas y el tracking que se abre al hover */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 19px 30px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    letter-spacing 0.25s ease;
+}
+.cta:hover { letter-spacing: 0.28em; }
+.cta i {
+  display: block;
+  width: 26px;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+.cta:hover i { width: 44px; }
+
+.cta--azul { background: var(--azul); color: var(--sobre-azul); }
+.cta--azul:hover { background: var(--cta-alt-bg); color: var(--cta-alt-fg); }
+.cta--linea { border: 1px solid var(--line); color: var(--texto); }
+.cta--linea:hover { border-color: var(--acento); color: var(--acento); }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-rise { animation: none; transform: none; }
+  .anim-fade { animation: none; opacity: 1; }
+  .mask > span { transform: none; transition: none; }
+  .fill-word::after { clip-path: none; animation: none; }
+  .js-rv .rv { opacity: 1; transform: none; transition: none; }
+}

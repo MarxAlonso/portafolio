@@ -1,17 +1,40 @@
 ---
-import ProjectsFull from "../components/icons/ProjectsFull.astro";
 import ProjectsList from "../components/ProjectsList.astro";
-import SectionProyectosList from "../components/SectionProyectosList.astro";
 import Layout from "../layouts/Layout.astro";
 ---
-<Layout title="Proyectos Realizados" description="Proyectos en las que he participado y realizado">
-    <SectionProyectosList id="proyectos">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
-                <ProjectsFull class="size-7"/>
-                Lista de Proyectos
-            </h2>
-            <ProjectsList />
-        </div>
-    </SectionProyectosList>
+<Layout title="Proyectos | Marx Chipana" description="Webs en producción y sistemas que he desarrollado: Astro, Next.js, React, Laravel, Java y más.">
+    <main class="proyectos">
+        <header class="proyectos__cabeza">
+            <span class="hud">~/proyectos · ls -la</span>
+            <h1 class="titulo-seccion">Todos los <em>proyectos</em></h1>
+            <p class="proyectos__entradilla">
+                Webs en producción y sistemas que he desarrollado. Escribe en la terminal para filtrar por nombre, tecnología o dominio.
+            </p>
+        </header>
+        <ProjectsList />
+        <a href="/#proyectos" class="cta cta--linea proyectos__volver">← Volver al inicio</a>
+    </main>
 </Layout>
+
+<style>
+    /* a todo el ancho disponible, con un tope para pantallas muy grandes */
+    .proyectos {
+        width: 100%;
+        max-width: 1560px;
+        margin-inline: auto;
+        padding: clamp(28px, 5vw, 64px) clamp(0px, 2vw, 32px) 96px;
+    }
+    .proyectos__cabeza {
+        display: grid;
+        gap: 16px;
+        margin-bottom: clamp(24px, 3vw, 40px);
+    }
+    .proyectos__entradilla {
+        max-width: 62ch;
+        line-height: 1.6;
+        color: var(--mute);
+    }
+    .proyectos__volver {
+        margin-top: clamp(32px, 4vw, 56px);
+    }
+</style>

@@ -1,0 +1,22 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import { WEBS } from '../data/proyectos';
+---
+
+<ul class="webs">
+  {WEBS.map((web, i) => <ProjectCard proyecto={web} indice={i} destacada={i === 0} revelar />)}
+</ul>
+
+<style>
+  .webs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(18px, 2.4vw, 30px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (max-width: 760px) {
+    .webs { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

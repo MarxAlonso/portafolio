@@ -1,0 +1,728 @@
+---
+// Banner en ASCII (figlet · ANSI Shadow). Se pinta con una fuente monoespaciada
+// del sistema para que los caracteres de caja queden alineados.
+const BANNER = [
+  '███╗   ███╗ █████╗ ██████╗ ██╗  ██╗',
+  '████╗ ████║██╔══██╗██╔══██╗╚██╗██╔╝',
+  '██╔████╔██║███████║██████╔╝ ╚███╔╝ ',
+  '██║╚██╔╝██║██╔══██║██╔══██╗ ██╔██╗ ',
+  '██║ ╚═╝ ██║██║  ██║██║  ██║██╔╝ ██╗',
+  '╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝',
+  ' ██████╗██╗  ██╗██╗██████╗  █████╗ ███╗   ██╗ █████╗ ',
+  '██╔════╝██║  ██║██║██╔══██╗██╔══██╗████╗  ██║██╔══██╗',
+  '██║     ███████║██║██████╔╝███████║██╔██╗ ██║███████║',
+  '██║     ██╔══██║██║██╔═══╝ ██╔══██║██║╚██╗██║██╔══██║',
+  '╚██████╗██║  ██║██║██║     ██║  ██║██║ ╚████║██║  ██║',
+  ' ╚═════╝╚═╝  ╚═╝╚═╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝',
+].join('\n');
+
+const ATAJOS = ['help', 'whoami', 'stack', 'proyectos', 'pnpm dev', 'pnpm build', 'git push', 'pnpm deploy', 'contacto', 'clear'];
+
+const ETAPAS = [
+  { id: 'codigo', nombre: 'Código', comando: 'pnpm dev' },
+  { id: 'build', nombre: 'Build', comando: 'pnpm build' },
+  { id: 'git', nombre: 'Git', comando: 'git push' },
+  { id: 'deploy', nombre: 'Deploy', comando: 'pnpm deploy' },
+];
+---
+
+<div class="term-zona zona-oscura" data-terminal>
+  <!-- símbolos de código flotando detrás -->
+  <div class="term-zona__glifos" aria-hidden="true">
+    <span style="left:2%;top:6%">{'</>'}</span>
+    <span style="left:92%;top:2%;animation-delay:-3s">{'{ }'}</span>
+    <span style="left:48%;top:-4%;animation-delay:-6s">{'=>'}</span>
+    <span style="left:96%;top:78%;animation-delay:-2s">{'[ ]'}</span>
+    <span style="left:-1%;top:84%;animation-delay:-5s">{'&&'}</span>
+  </div>
+
+  <div class="term" id="terminal">
+    <div class="term__barra">
+      <span class="term__luces" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="term__titulo">marx@portfolio: ~</span>
+      <span class="term__shell" aria-hidden="true">zsh</span>
+    </div>
+
+    <pre class="term__banner" aria-label="Marx Chipana">{BANNER}</pre>
+
+    <div class="term__cuerpo" data-cuerpo>
+      <div class="term__salida" data-salida aria-live="polite">
+        <p class="t-mute">Ingeniero de Software Full-Stack · Lima, Perú</p>
+        <p class="t-mute">Escribe <b class="t-acento">help</b> para ver los comandos disponibles.</p>
+      </div>
+
+      <label class="term__linea">
+        <span class="term__prompt" aria-hidden="true"><b>marx@portfolio</b>:<i>~</i>$</span>
+        <input
+          class="term__input"
+          data-entrada
+          type="text"
+          aria-label="Comando de la terminal"
+          autocomplete="off"
+          autocapitalize="off"
+          autocorrect="off"
+          spellcheck="false"
+          enterkeyhint="send"
+        />
+      </label>
+    </div>
+
+    <div class="term__atajos" aria-label="Comandos rápidos">
+      {ATAJOS.map((c) => (
+        <button type="button" class="term__atajo" data-comando={c}>{c}</button>
+      ))}
+    </div>
+  </div>
+
+  <!-- el flujo de trabajo, dibujado: cada etapa se enciende con su comando -->
+  <aside class="flujo" aria-label="Flujo de trabajo">
+    <!-- editor de código -->
+    <svg class="flujo__editor" viewBox="0 0 320 190" fill="none" aria-hidden="true">
+      <rect x="1" y="1" width="318" height="188" rx="10" stroke="currentColor" stroke-opacity=".25" />
+      <path d="M1 30h318" stroke="currentColor" stroke-opacity=".25" />
+      <circle cx="18" cy="16" r="4" fill="#ff5f57" />
+      <circle cx="32" cy="16" r="4" fill="#febc2e" />
+      <circle cx="46" cy="16" r="4" fill="#28c840" />
+      <rect x="70" y="9" width="74" height="21" rx="4" fill="currentColor" fill-opacity=".08" />
+      <text x="80" y="24" class="flujo__archivo">index.astro</text>
+      <g class="flujo__codigo">
+        <rect x="42" y="48" width="34" height="6" rx="3" fill="#c792ea" />
+        <rect x="82" y="48" width="58" height="6" rx="3" fill="#5ed3ff" />
+        <rect x="146" y="48" width="40" height="6" rx="3" fill="#8b93a8" />
+        <rect x="58" y="66" width="46" height="6" rx="3" fill="#4ade80" />
+        <rect x="110" y="66" width="92" height="6" rx="3" fill="#e9edf7" fill-opacity=".7" />
+        <rect x="58" y="84" width="28" height="6" rx="3" fill="#ffb257" />
+        <rect x="92" y="84" width="64" height="6" rx="3" fill="#5ed3ff" />
+        <rect x="162" y="84" width="54" height="6" rx="3" fill="#8b93a8" />
+        <rect x="74" y="102" width="70" height="6" rx="3" fill="#e9edf7" fill-opacity=".7" />
+        <rect x="150" y="102" width="36" height="6" rx="3" fill="#c792ea" />
+        <rect x="58" y="120" width="52" height="6" rx="3" fill="#4ade80" />
+        <rect x="116" y="120" width="30" height="6" rx="3" fill="#ffb257" />
+        <rect x="42" y="138" width="24" height="6" rx="3" fill="#c792ea" />
+        <rect x="42" y="156" width="80" height="6" rx="3" fill="#8b93a8" />
+      </g>
+      <g fill="currentColor" fill-opacity=".3" class="flujo__numeros">
+        <rect x="16" y="48" width="10" height="6" rx="3" />
+        <rect x="16" y="66" width="10" height="6" rx="3" />
+        <rect x="16" y="84" width="10" height="6" rx="3" />
+        <rect x="16" y="102" width="10" height="6" rx="3" />
+        <rect x="16" y="120" width="10" height="6" rx="3" />
+        <rect x="16" y="138" width="10" height="6" rx="3" />
+        <rect x="16" y="156" width="10" height="6" rx="3" />
+      </g>
+      <rect class="flujo__cursor" x="128" y="153" width="2" height="12" fill="#5ed3ff" />
+    </svg>
+
+    <ol class="flujo__etapas">
+      {ETAPAS.map((e) => (
+        <li>
+          <button type="button" class="flujo__etapa" data-etapa={e.id} data-comando={e.comando}>
+            <span class="flujo__icono">
+              {e.id === 'codigo' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16" />
+                </svg>
+              )}
+              {e.id === 'build' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3ZM4 7.5l8 4.5 8-4.5M12 12v9" />
+                </svg>
+              )}
+              {e.id === 'git' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="6" cy="5" r="2.2" /><circle cx="6" cy="19" r="2.2" /><circle cx="18" cy="8" r="2.2" />
+                  <path d="M6 7.2v9.6M18 10.2c0 4-6 3-12 6" />
+                </svg>
+              )}
+              {e.id === 'deploy' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14 4c3.5 0 6 2.5 6 6-2 5-6 8-9 9l-6-6c1-3 4-7 9-9ZM5 13l-2 1 2-5 4-1M11 19l-1 2 5-2 1-4" />
+                  <circle cx="14.5" cy="9.5" r="1.6" />
+                </svg>
+              )}
+            </span>
+            <span class="flujo__texto">
+              <b>{e.nombre}</b>
+              <code>$ {e.comando}</code>
+            </span>
+            <span class="flujo__estado" aria-hidden="true"></span>
+          </button>
+        </li>
+      ))}
+    </ol>
+  </aside>
+</div>
+
+<script>
+  type Etapa = 'codigo' | 'build' | 'git' | 'deploy';
+
+  const raiz = document.querySelector<HTMLElement>('[data-terminal]');
+  const cuerpo = raiz?.querySelector<HTMLElement>('[data-cuerpo]');
+  const salida = raiz?.querySelector<HTMLElement>('[data-salida]');
+  const entrada = raiz?.querySelector<HTMLInputElement>('[data-entrada]');
+
+  if (raiz && cuerpo && salida && entrada) {
+    const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const espera = (ms: number) =>
+      new Promise<void>((r) => setTimeout(r, sinMovimiento ? 0 : ms));
+
+    const historial: string[] = [];
+    let cursorHistorial = 0;
+    let ocupado = false;
+    // cada vez que el usuario interviene sube el turno y la demo se detiene
+    let turno = 0;
+
+    const alFinal = () => {
+      cuerpo.scrollTop = cuerpo.scrollHeight;
+    };
+
+    /** Imprime una línea de HTML propio (nunca texto del usuario). */
+    const linea = (html = '', clase = ''): HTMLParagraphElement => {
+      const p = document.createElement('p');
+      if (clase) p.className = clase;
+      p.innerHTML = html || '&nbsp;';
+      salida.append(p);
+      alFinal();
+      return p;
+    };
+
+    /** Repite el comando tecleado; va como texto, sin interpretar HTML. */
+    const eco = (comando: string) => {
+      const p = document.createElement('p');
+      p.className = 't-eco';
+      const prompt = document.createElement('span');
+      prompt.className = 'term__prompt';
+      prompt.innerHTML = '<b>marx@portfolio</b>:<i>~</i>$';
+      p.append(prompt, ` ${comando}`);
+      salida.append(p);
+      alFinal();
+    };
+
+    const barra = async (etiqueta: string, pasos = 20) => {
+      const p = linea('', 't-mute');
+      for (let i = 0; i <= pasos; i++) {
+        const lleno = '█'.repeat(i);
+        const vacio = '░'.repeat(pasos - i);
+        p.innerHTML = `${etiqueta} <span class="t-acento">${lleno}</span>${vacio} ${Math.round((i / pasos) * 100)}%`;
+        await espera(45);
+      }
+    };
+
+    const etapa = (id: Etapa, estado: 'activa' | 'hecha') => {
+      const el = raiz.querySelector<HTMLElement>(`[data-etapa="${id}"]`);
+      if (el) el.dataset.estado = estado;
+      raiz.dataset.etapa = estado === 'activa' ? id : '';
+    };
+
+    const irA = (id: string) => {
+      document.getElementById(id)?.scrollIntoView({ behavior: sinMovimiento ? 'auto' : 'smooth' });
+    };
+
+    const enlace = (href: string, texto: string) =>
+      `<a href="${href}" target="_blank" rel="noopener noreferrer">${texto}</a>`;
+
+    const WEBS: [string, string, string][] = [
+      ['excelsius.biz', 'https://www.excelsius.biz/', 'Astro'],
+      ['besocial-marketing.com', 'https://besocial-marketing.com/', 'Astro'],
+      ['ducasimport.pe', 'https://ducasimport.pe/', 'Next.js'],
+      ['carlosampuero.pe', 'https://carlosampuero.pe/', 'Next.js'],
+      ['homehelp.com.pe', 'https://homehelp.com.pe/', 'Next.js'],
+      ['carnicentromarcelo.com', 'https://carnicentromarcelo.com/', 'Next.js'],
+      ['chipanarealestate.com', 'https://www.chipanarealestate.com/', 'Next.js'],
+    ];
+
+    const COMANDOS: Record<string, (args: string[]) => void | Promise<void>> = {
+      help() {
+        linea('Comandos disponibles:', 't-acento');
+        const filas: [string, string][] = [
+          ['whoami', 'quién soy'],
+          ['stack', 'tecnologías con las que trabajo'],
+          ['proyectos', 'webs que desarrollé (open &lt;n&gt; abre una)'],
+          ['experiencia', 'ir a mi experiencia laboral'],
+          ['contacto', 'cómo escribirme'],
+          ['pnpm dev', 'levantar el servidor de desarrollo'],
+          ['pnpm build', 'compilar el sitio'],
+          ['git push', 'subir los cambios'],
+          ['pnpm deploy', 'publicar en producción'],
+          ['banner · date · clear', 'utilidades'],
+        ];
+        for (const [c, d] of filas) linea(`  <b class="t-verde">${c.padEnd(22)}</b><span class="t-mute">${d}</span>`);
+      },
+
+      whoami() {
+        linea('<b>Marx Chipana</b> — Ingeniero de Software Full-Stack');
+        linea('Lima, Perú · 3 años de experiencia', 't-mute');
+        linea('<span class="t-verde">●</span> Disponible para trabajar');
+      },
+
+      stack() {
+        linea('<b class="t-acento">frontend </b> React · Next.js · Astro · TypeScript · Tailwind');
+        linea('<b class="t-verde">backend  </b> NestJS · FastAPI · Node.js · Go');
+        linea('<b class="t-violeta">cms      </b> WordPress · Elementor · Divi');
+        linea('<b class="t-ambar">datos    </b> PostgreSQL · MySQL');
+      },
+
+      proyectos() {
+        linea('Webs en producción:', 't-acento');
+        WEBS.forEach(([nombre, url, tec], i) => {
+          linea(`  <span class="t-mute">${i + 1}.</span> ${enlace(url, nombre)} <span class="t-mute">· ${tec}</span>`);
+        });
+        linea(`Escribe <b class="t-verde">open 1</b>…<b class="t-verde">${WEBS.length}</b> para abrir una, o baja a la sección de proyectos.`, 't-mute');
+      },
+
+      open(args) {
+        const web = WEBS[Number(args[0]) - 1];
+        if (!web) return void linea(`uso: open &lt;1-${WEBS.length}&gt;`, 't-error');
+        linea(`Abriendo ${web[0]}…`, 't-mute');
+        window.open(web[1], '_blank', 'noopener');
+      },
+
+      experiencia() {
+        linea('cd ~/experiencia', 't-mute');
+        irA('experiencia');
+      },
+
+      contacto() {
+        linea(`<b class="t-acento">linkedin </b> ${enlace('https://www.linkedin.com/in/marx-alonso-chipana', 'in/marx-alonso-chipana')}`);
+        linea(`<b class="t-acento">github   </b> ${enlace('https://github.com/MarxAlonso', 'MarxAlonso')}`);
+        linea('<b class="t-acento">email    </b> marxchip99@gmail.com');
+        linea('<b class="t-acento">whatsapp </b> +51 922 061 911');
+        linea('<b class="t-acento">form     </b> <a href="Contacto">/Contacto</a>');
+      },
+
+      async dev() {
+        etapa('codigo', 'activa');
+        linea('<span class="t-mute">$ astro dev</span>');
+        await espera(450);
+        linea('<b class="t-violeta"> astro </b> v7 <span class="t-mute">ready in</span> 412 ms');
+        linea('<span class="t-mute">┃ Local  </span>  <span class="t-acento">http://localhost:4321/</span>');
+        linea('<span class="t-mute">┃ Network</span>  use --host to expose');
+        await espera(350);
+        linea('<span class="t-verde">watching for file changes…</span>');
+        etapa('codigo', 'hecha');
+      },
+
+      async build() {
+        etapa('build', 'activa');
+        linea('<span class="t-mute">$ astro check && astro build</span>');
+        await espera(400);
+        linea('<span class="t-verde">✓</span> astro check <span class="t-mute">— 0 errors, 0 warnings</span>');
+        await barra('building');
+        linea('<span class="t-verde">✓</span> 9 page(s) built in <b>1.50s</b>');
+        linea('<b class="t-verde">Complete!</b> <span class="t-mute">→ dist/</span>');
+        etapa('build', 'hecha');
+      },
+
+      async push() {
+        etapa('git', 'activa');
+        linea('Enumerating objects: 42, done.', 't-mute');
+        await espera(350);
+        linea('Compressing objects: 100% (28/28), done.', 't-mute');
+        await espera(350);
+        linea('To github.com:MarxAlonso/portafolio.git');
+        linea('   <span class="t-ambar">b47dfe2..a1c9e04</span>  main -> main');
+        etapa('git', 'hecha');
+      },
+
+      async deploy() {
+        etapa('deploy', 'activa');
+        linea('<span class="t-mute">$ astro build && wrangler deploy</span>');
+        await barra('uploading', 16);
+        linea('<span class="t-verde">✓</span> Netlify <span class="t-mute">— published</span>');
+        linea('<span class="t-verde">✓</span> Cloudflare <span class="t-mute">— deployed to the edge</span>');
+        linea('<b class="t-verde">🚀 En producción.</b>');
+        etapa('deploy', 'hecha');
+      },
+
+      banner() {
+        linea('<b>MARX CHIPANA</b> — Full-Stack Dev', 't-acento');
+      },
+
+      date() {
+        linea(new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' }) + ' (Lima)');
+      },
+
+      ls() {
+        linea('<b class="t-acento">experiencia/  proyectos/  contacto/</b>  stack.md  whoami.txt');
+      },
+
+      cd(args) {
+        const destino = (args[0] ?? '').replace(/[~/.]/g, '');
+        if (destino === 'proyectos' || destino === 'experiencia') irA(destino);
+        else if (destino === 'contacto') window.location.href = 'Contacto';
+        else linea(`cd: no existe el directorio: ${destino || '~'}`.replace(/[<>&]/g, ''), 't-error');
+      },
+
+      sudo() {
+        linea('Permiso denegado: buen intento 😄', 't-error');
+      },
+
+      clear() {
+        salida.replaceChildren();
+      },
+    };
+
+    /** Traduce lo tecleado al comando interno. */
+    const resolver = (texto: string): [string, string[]] => {
+      const partes = texto.trim().split(/\s+/);
+      const junto = partes.join(' ').toLowerCase();
+      if (/^(pnpm|npm|yarn|bun)( run)? (dev|start)$/.test(junto) || junto === 'astro dev') return ['dev', []];
+      if (/^(pnpm|npm|yarn|bun)( run)? build$/.test(junto) || junto === 'astro build') return ['build', []];
+      if (/^(pnpm|npm|yarn|bun)( run)? deploy$/.test(junto) || junto === 'wrangler deploy') return ['deploy', []];
+      if (/^git push/.test(junto)) return ['push', []];
+      if (junto === 'cls') return ['clear', []];
+      return [partes[0].toLowerCase(), partes.slice(1)];
+    };
+
+    const ejecutar = async (texto: string) => {
+      const limpio = texto.trim();
+      if (ocupado) return;
+      eco(limpio);
+      if (!limpio) return;
+
+      historial.push(limpio);
+      cursorHistorial = historial.length;
+
+      const [nombre, args] = resolver(limpio);
+      const comando = Object.hasOwn(COMANDOS, nombre) ? COMANDOS[nombre] : undefined;
+
+      ocupado = true;
+      raiz.toggleAttribute('data-ocupado', true);
+      try {
+        if (comando) await comando(args);
+        else {
+          const p = linea('', 't-error');
+          p.textContent = `comando no encontrado: ${nombre}. Escribe help.`;
+        }
+      } finally {
+        ocupado = false;
+        raiz.removeAttribute('data-ocupado');
+        alFinal();
+      }
+    };
+
+    /** Teclea un comando letra a letra, como en una demo grabada. */
+    const teclear = async (texto: string, miTurno: number) => {
+      for (let i = 1; i <= texto.length; i++) {
+        if (miTurno !== turno) return false;
+        entrada.value = texto.slice(0, i);
+        await espera(55);
+      }
+      await espera(320);
+      if (miTurno !== turno) return false;
+      entrada.value = '';
+      await ejecutar(texto);
+      return true;
+    };
+
+    const demo = async () => {
+      const miTurno = turno;
+      for (const c of ['whoami', 'pnpm dev', 'pnpm build', 'git push', 'pnpm deploy']) {
+        await espera(700);
+        if (miTurno !== turno || !(await teclear(c, miTurno))) return;
+      }
+      if (miTurno === turno) linea('Tu turno: escribe <b class="t-acento">help</b> o toca un comando.', 't-mute');
+    };
+
+    const interrumpir = () => {
+      if (turno === 0) entrada.value = '';
+      turno++;
+    };
+
+    entrada.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (ocupado) return;
+        const texto = entrada.value;
+        entrada.value = '';
+        void ejecutar(texto);
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        cursorHistorial = Math.max(0, Math.min(historial.length, cursorHistorial + (e.key === 'ArrowUp' ? -1 : 1)));
+        entrada.value = historial[cursorHistorial] ?? '';
+      } else if (e.key === 'l' && e.ctrlKey) {
+        e.preventDefault();
+        salida.replaceChildren();
+      }
+    });
+    // teclear a mano corta la demo; lo que escribe la demo no dispara `beforeinput`
+    entrada.addEventListener('beforeinput', () => {
+      if (turno === 0) interrumpir();
+    });
+
+    raiz.addEventListener('click', (e) => {
+      const objetivo = e.target as HTMLElement;
+      const boton = objetivo.closest<HTMLElement>('[data-comando]');
+      if (boton) {
+        interrumpir();
+        void ejecutar(boton.dataset.comando ?? '');
+        return;
+      }
+      // clic en la ventana: enfoca el prompt, salvo que se esté seleccionando texto
+      if (objetivo.closest('.term') && !objetivo.closest('a') && !window.getSelection()?.toString()) {
+        entrada.focus({ preventScroll: true });
+      }
+    });
+
+    // la demo arranca cuando la terminal entra en pantalla
+    if (sinMovimiento) {
+      void ejecutar('help');
+    } else {
+      const observador = new IntersectionObserver(
+        (entradas) => {
+          if (entradas.some((x) => x.isIntersecting)) {
+            observador.disconnect();
+            void demo();
+          }
+        },
+        { threshold: 0.4 },
+      );
+      observador.observe(cuerpo);
+    }
+  }
+</script>
+
+<style>
+  .term-zona {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: clamp(20px, 3vw, 40px);
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .term-zona { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* ---------- símbolos flotantes ---------- */
+  .term-zona__glifos { position: absolute; inset: -40px 0; pointer-events: none; z-index: 0; }
+  .term-zona__glifos span {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: clamp(22px, 3vw, 40px);
+    font-weight: 700;
+    color: var(--acento);
+    opacity: 0.1;
+    animation: flotar 9s ease-in-out infinite;
+  }
+  @keyframes flotar {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50% { transform: translateY(-16px) rotate(4deg); }
+  }
+
+  /* ---------- ventana ---------- */
+  .term {
+    position: relative;
+    z-index: 1;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(7, 10, 20, 0.92);
+    box-shadow:
+      0 30px 80px -30px rgba(4, 48, 207, 0.55),
+      0 0 0 1px rgba(94, 211, 255, 0.05);
+    overflow: hidden;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.65;
+    scroll-margin-top: 16px;
+  }
+  .term__barra {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.035);
+  }
+  .term__luces { display: flex; gap: 7px; }
+  .term__luces i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; }
+  .term__luces i:nth-child(2) { background: #febc2e; }
+  .term__luces i:nth-child(3) { background: #28c840; }
+  .term__titulo { flex: 1; text-align: center; font-size: 12px; color: var(--mute); }
+  .term__shell { font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mute); }
+
+  .term__cuerpo {
+    height: clamp(250px, 36vh, 330px);
+    overflow-y: auto;
+    padding: 10px 18px 12px;
+    cursor: text;
+    /* se desplaza sola al escribir: sin barra propia a un lado de la ventana */
+    overflow-x: hidden;
+    scrollbar-width: none;
+  }
+  .term__cuerpo::-webkit-scrollbar { display: none; }
+
+  .term__banner {
+    margin: 0;
+    padding: 16px 18px 12px;
+    border-bottom: 1px dashed var(--line);
+    /* fuente del sistema: los caracteres de caja deben medir igual que el espacio */
+    font-family: Consolas, 'Cascadia Mono', Menlo, 'DejaVu Sans Mono', 'Liberation Mono', monospace;
+    font-size: clamp(6.5px, 2.35vw, 11.5px);
+    line-height: 1.08;
+    white-space: pre;
+    color: transparent;
+    background: linear-gradient(115deg, #2f7bff 0%, #5ed3ff 55%, #b9ecff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    user-select: none;
+  }
+  @media (min-width: 901px) {
+    .term__banner { font-size: clamp(8px, 0.95vw, 11.5px); }
+  }
+
+  .term__salida :global(p) { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--texto); }
+  .term__salida :global(a) { color: var(--acento); text-decoration: underline; text-underline-offset: 3px; }
+  .term__salida :global(a:hover) { color: #fff; }
+  .term__salida :global(.t-eco) { margin-top: 8px; }
+  .term__salida :global(.t-mute) { color: var(--mute); }
+  .term__salida :global(.t-acento) { color: var(--acento); }
+  .term__salida :global(.t-verde) { color: var(--verde); }
+  .term__salida :global(.t-violeta) { color: #c792ea; }
+  .term__salida :global(.t-ambar) { color: #ffb257; }
+  .term__salida :global(.t-error) { color: #ff7a7a; }
+
+  .term__linea { display: flex; align-items: center; gap: 8px; margin-top: 8px; cursor: text; }
+  .term :global(.term__prompt) { color: var(--mute); white-space: nowrap; }
+  .term :global(.term__prompt b) { font-weight: 500; color: var(--verde); }
+  .term :global(.term__prompt i) { font-style: normal; color: var(--acento); }
+  .term__input {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: none;
+    font: inherit;
+    color: var(--texto);
+    caret-color: var(--acento);
+  }
+  [data-ocupado] .term__linea { opacity: 0.45; }
+  @media (max-width: 760px) {
+    .term { font-size: 12px; }
+    /* 16px evita el zoom automático de iOS al enfocar */
+    .term__input { font-size: 16px; }
+    .term__shell { display: none; }
+  }
+
+  .term__atajos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px 14px;
+    border-top: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .term__atajo {
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font: inherit;
+    font-size: 11.5px;
+    color: var(--mute);
+    background: none;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  }
+  .term__atajo:hover,
+  .term__atajo:focus-visible {
+    color: var(--acento);
+    border-color: var(--acento);
+    background: rgba(94, 211, 255, 0.08);
+  }
+
+  /* ---------- flujo dibujado ---------- */
+  .flujo { position: relative; z-index: 1; color: var(--texto); }
+  .flujo__editor { display: block; width: 100%; height: auto; margin-bottom: 22px; }
+  .flujo__archivo { font-family: var(--mono); font-size: 10px; fill: var(--mute); }
+  .flujo__cursor { animation: parpadeo 1.1s steps(1) infinite; }
+  .flujo__codigo rect {
+    transform-box: fill-box;
+    transform-origin: left;
+    animation: escribir 7s ease-in-out infinite;
+  }
+  .flujo__codigo rect:nth-child(3n + 2) { animation-delay: 0.5s; }
+  .flujo__codigo rect:nth-child(3n) { animation-delay: 1s; }
+  @keyframes parpadeo { 50% { opacity: 0; } }
+  @keyframes escribir {
+    0% { transform: scaleX(0); }
+    14%, 88% { transform: scaleX(1); }
+    100% { transform: scaleX(0); }
+  }
+  @media (max-width: 900px) {
+    .flujo__editor { display: none; }
+  }
+
+  .flujo__etapas { position: relative; display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  /* la línea que une las etapas */
+  .flujo__etapas::before {
+    content: '';
+    position: absolute;
+    left: 31px;
+    top: 28px;
+    bottom: 28px;
+    width: 1px;
+    background: repeating-linear-gradient(var(--line-fuerte) 0 4px, transparent 4px 9px);
+  }
+  @media (max-width: 900px) {
+    .flujo__etapas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .flujo__etapas::before { display: none; }
+  }
+
+  .flujo__etapa {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 10px 14px 10px 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgba(11, 15, 28, 0.85);
+    text-align: left;
+    color: var(--mute);
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+  .flujo__etapa:hover { border-color: var(--acento); color: var(--texto); transform: translateX(4px); }
+  .flujo__icono {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--fondo);
+    transition: inherit;
+  }
+  .flujo__icono svg { width: 22px; height: 22px; }
+  .flujo__texto { display: grid; min-width: 0; }
+  .flujo__texto b { font-size: 14px; font-weight: 600; color: var(--texto); }
+  .flujo__texto code { font-family: var(--mono); font-size: 11.5px; white-space: nowrap; }
+  .flujo__estado {
+    width: 8px;
+    height: 8px;
+    margin-left: auto;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+
+  .flujo__etapa[data-estado='activa'] {
+    border-color: var(--acento);
+    color: var(--acento);
+    box-shadow: 0 0 24px -6px rgba(94, 211, 255, 0.6);
+  }
+  .flujo__etapa[data-estado='activa'] .flujo__icono { border-color: var(--acento); color: var(--acento); }
+  .flujo__etapa[data-estado='activa'] .flujo__estado { background: var(--acento); animation: parpadeo 0.6s steps(1) infinite; }
+  .flujo__etapa[data-estado='hecha'] { border-color: rgba(74, 222, 128, 0.45); }
+  .flujo__etapa[data-estado='hecha'] .flujo__icono { border-color: rgba(74, 222, 128, 0.45); color: var(--verde); }
+  .flujo__etapa[data-estado='hecha'] .flujo__estado { background: var(--verde); box-shadow: 0 0 10px var(--verde); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .term-zona__glifos span,
+    .flujo__cursor,
+    .flujo__codigo rect { animation: none; }
+  }
+</style>

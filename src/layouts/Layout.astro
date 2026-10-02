@@ -1,5 +1,7 @@
 ---
 import "@fontsource-variable/onest"
+import "@fontsource-variable/jetbrains-mono"
+import "../styles/global.css"
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 interface Props {
@@ -22,7 +24,7 @@ const { description, title } = Astro.props;
 		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7330512160006531"
      crossorigin="anonymous"></script>
 	</head>
-	<body class="px-4" id="inicio">
+	<body id="inicio">
 		<Header />
 		<slot />
 		<Footer />
@@ -33,15 +35,22 @@ const { description, title } = Astro.props;
 		color-scheme: light dark;
 	}
 	html {
-		font-family: "Onest", system-ui, sans-serif;
+		font-family: "Onest Variable", "Onest", system-ui, sans-serif;
 		scroll-behavior: smooth;
+		/* nada debe provocar scroll lateral en la página */
+		overflow-x: clip;
+		/* los anclajes no quedan bajo la cabecera fija */
+		scroll-padding-top: 1.5rem;
 	}
 	
 	body{
 		background: linear-gradient(135deg, #050505, #101e42);
+		color: #e9edf7;
 		flex-direction: column;
 		display: flex;
 		min-height: 100vh;
+		/* el rail fijo ocupa el borde izquierdo en escritorio */
+		padding-inline: calc(var(--rail) + 1rem) 1rem;
 	}
 	/* Estilizando el scroll */
 	/* Fondo del scroll */
@@ -69,6 +78,16 @@ const { description, title } = Astro.props;
 	/* Color del thumb del scroll en active */
 	::-webkit-scrollbar-thumb:active {
 		background-color: #1a3875; /* Azul más claro */
+	}
+
+	/* en móvil el rail desaparece y manda la barra superior */
+	@media (max-width: 759px){
+		html{
+			scroll-padding-top: 76px;
+		}
+		body{
+			padding-top: 60px;
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce){
