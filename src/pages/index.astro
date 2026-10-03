@@ -10,13 +10,13 @@ import SectionContainer from '../components/SectionContainer.astro';
 import ProjectsFull from '../components/icons/ProjectsFull.astro';
 import WhatsApp from '../components/icons/WhatsApp.astro';
 import Github from '../components/icons/Github.astro';
-import ProgramarIcon from '../components/icons/ProgramarIcon.astro';
 import Frameworks from '../components/Frameworks.astro';
-import EstilosGenial from '../components/EstilosFrameworks/EstilosGenial.astro';
+import Herramientas from '../components/Herramientas.astro';
 import ContactoIcon from '../components/icons/ContactoIcon.astro';
 import Hero from '../components/Hero.astro';
 import Terminal from '../components/Terminal.astro';
 import WebProjects from '../components/WebProjects.astro';
+import { STACK } from '../data/stack';
 
 const DEMOS = [
 	['MarxInfoDev', 'https://marx-infodev.netlify.app'],
@@ -25,6 +25,7 @@ const DEMOS = [
 	['Modelos Web Marx', 'https://modelos-web-mrx.netlify.app/'],
 	['Restaurant API Marx', 'https://restaurant-api-smoky.vercel.app/'],
 ];
+const MODULOS = STACK.reduce((n, capa) => n + capa.tecnologias.length, 0);
 ---
 <Layout title="Portafolio | Marx Chipana — Ingeniero de Software Full-Stack" description="Desarrollo web profesional con React, Next.js, NestJS, FastAPI, Node.js, Go y WordPress. 3 años de experiencia creando aplicaciones web interactivas y responsivas." >
 	<Hero />
@@ -84,20 +85,26 @@ const DEMOS = [
 			</header>
 			<Experience />
 		</section>
-		<SectionContainer>
-			<h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
-				<ProgramarIcon class="size-7"/>
-				Lenguajes y Frameworks
-			</h2>
+		<section id="stack" class="ancho pb-24">
+			<header class="rv mb-10">
+				<span class="hud">~/stack · {MODULOS} módulos en {STACK.length} capas</span>
+				<h2 class="titulo-seccion mt-4">Lenguajes y <em>frameworks</em></h2>
+				<p class="mt-5 max-w-[62ch] text-white/70 leading-relaxed">
+					La pila del inicio, desplegada capa por capa: cada módulo es una tecnología con la que construyo, del navegador a la base de datos.
+				</p>
+			</header>
 			<Frameworks />
-		</SectionContainer>
-		<SectionContainer>
-			<h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
-				<ProgramarIcon class="size-7"/>
-				Softwares
-			</h2>
-			<EstilosGenial />
-		</SectionContainer>
+		</section>
+		<section id="herramientas" class="ancho pb-24">
+			<header class="rv mb-10">
+				<span class="hud">~/herramientas · ps aux</span>
+				<h2 class="titulo-seccion mt-4">Software y <em>herramientas</em></h2>
+				<p class="mt-5 max-w-[62ch] text-white/70 leading-relaxed">
+					El entorno con el que trabajo a diario, listado como los procesos de una máquina: editores, redes, diseño y comunicación.
+				</p>
+			</header>
+			<Herramientas />
+		</section>
 		<section id="proyectos" class="ancho pb-24">
 			<header class="rv mb-10">
 				<span class="hud">~/proyectos · webs en producción</span>

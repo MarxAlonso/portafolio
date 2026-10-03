@@ -1,0 +1,206 @@
+---
+// El software de trabajo se lista como la salida de un `ps`: un proceso por
+// herramienta, con su tipo y para qué la uso.
+import { HERRAMIENTAS } from '../data/stack';
+
+const tipos = new Set(HERRAMIENTAS.map((h) => h.tipo)).size;
+---
+
+<div class="ps zona-oscura">
+  <div class="ps__barra">
+    <span class="ps__luces" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="ps__titulo">marx@portfolio: ~/herramientas</span>
+    <span class="ps__resumen">{HERRAMIENTAS.length} procesos · {tipos} tipos</span>
+  </div>
+
+  <div class="ps__cuerpo">
+    <p class="ps__comando" aria-hidden="true">
+      <span class="ps__prompt"><b>marx@portfolio</b>:<i>~/herramientas</i>$</span> ps aux --sort=tipo
+    </p>
+
+    <div class="ps__cabecera" aria-hidden="true">
+      <span>PID</span>
+      <span>Proceso</span>
+      <span>Tipo</span>
+      <span>Uso</span>
+    </div>
+
+    <ol class="ps__lista">
+      {HERRAMIENTAS.map((h, i) => (
+        <li class="rv" style={`transition-delay:${i * 45}ms`}>
+          <div class="proc" style={`--marca:${h.color};--tinte:${h.tinte}`}>
+            <span class="proc__pid mono-num" aria-hidden="true">{String(i + 1).padStart(3, '0')}</span>
+            <span class="proc__nombre">
+              <span class="proc__icono">
+                <svg viewBox={h.caja ?? '0 0 24 24'} fill="currentColor" aria-hidden="true"><path d={h.trazo} /></svg>
+              </span>
+              <b>{h.nombre}</b>
+            </span>
+            <span class="proc__tipo">{h.tipo}</span>
+            <span class="proc__uso">{h.nota}</span>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <p class="ps__comando ps__comando--fin" aria-hidden="true">
+      <span class="ps__prompt"><b>marx@portfolio</b>:<i>~/herramientas</i>$</span>
+      <span class="ps__cursor"></span>
+    </p>
+  </div>
+</div>
+
+<style>
+  /* ---------- ventana ---------- */
+  .ps {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(7, 10, 20, 0.88);
+    box-shadow: 0 40px 100px -50px rgba(4, 48, 207, 0.6);
+    overflow: hidden;
+  }
+  .ps__barra {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.035);
+    font-family: var(--mono);
+  }
+  .ps__luces { display: flex; gap: 7px; }
+  .ps__luces i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; }
+  .ps__luces i:nth-child(2) { background: #febc2e; }
+  .ps__luces i:nth-child(3) { background: #28c840; }
+  .ps__titulo { flex: 1; text-align: center; font-size: 12px; color: var(--mute); }
+  .ps__resumen { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); }
+  @media (max-width: 640px) {
+    .ps__resumen { display: none; }
+  }
+
+  .ps__cuerpo { padding: clamp(16px, 3vw, 36px); }
+  .ps__comando {
+    margin-bottom: clamp(16px, 2.2vw, 24px);
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--texto);
+    overflow-wrap: anywhere;
+  }
+  .ps__comando--fin { display: flex; align-items: center; gap: 8px; margin: clamp(16px, 2.2vw, 24px) 0 0; }
+  .ps__prompt { color: var(--mute); }
+  .ps__prompt b { font-weight: 500; color: var(--verde); }
+  .ps__prompt i { font-style: normal; color: var(--acento); }
+  .ps__cursor { width: 8px; height: 16px; background: var(--acento); animation: ps-cursor 1.1s steps(2) infinite; }
+  @keyframes ps-cursor { 50% { opacity: 0; } }
+
+  /* ---------- tabla ---------- */
+  .ps__cabecera,
+  .proc {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1.15fr) 168px minmax(0, 1.5fr);
+    align-items: center;
+    gap: 0 clamp(12px, 2vw, 24px);
+    padding-inline: clamp(10px, 1.6vw, 18px);
+  }
+  .ps__cabecera {
+    padding-block: 0 10px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  .ps__lista { margin: 0; padding: 0; list-style: none; }
+  .ps__lista li + li { border-top: 1px solid rgba(255, 255, 255, 0.06); }
+
+  .proc {
+    position: relative;
+    padding-block: 11px;
+    transition: background-color 0.3s;
+  }
+  /* barra de la marca que sube por el borde de la fila */
+  .proc::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 2px;
+    background: var(--marca);
+    box-shadow: 0 0 14px var(--marca);
+    transform: scaleY(0);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .proc:hover { background: linear-gradient(90deg, color-mix(in srgb, var(--marca) 13%, transparent), transparent 62%); }
+  .proc:hover::before { transform: scaleY(1); }
+
+  .proc__pid { font-size: 12px; color: var(--mute); transition: color 0.3s; }
+  .proc:hover .proc__pid { color: var(--marca); }
+
+  .proc__nombre { display: flex; align-items: center; gap: 13px; min-width: 0; }
+  .proc__nombre b { font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; color: var(--texto); }
+  .proc__icono {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--marca);
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+  }
+  .proc__icono svg { width: 19px; height: 19px; }
+  .proc:hover .proc__icono {
+    border-color: color-mix(in srgb, var(--marca) 70%, transparent);
+    background: color-mix(in srgb, var(--marca) 12%, transparent);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--marca) 45%, transparent);
+  }
+
+  .proc__tipo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-self: start;
+    padding: 3px 10px;
+    border: 1px solid color-mix(in srgb, var(--tinte) 32%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tinte) 9%, transparent);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--tinte);
+  }
+  .proc__tipo::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 8px currentColor;
+  }
+  .proc__uso { font-size: 14px; line-height: 1.5; color: var(--mute); text-wrap: pretty; }
+
+  /* móvil: el proceso y su tipo en una línea, el uso debajo */
+  @media (max-width: 760px) {
+    .ps__cabecera,
+    .proc__pid { display: none; }
+    .proc {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 6px 12px;
+      padding-block: 13px;
+    }
+    .proc__uso { grid-column: 1 / -1; padding-left: 51px; font-size: 13.5px; }
+  }
+  @media (max-width: 460px) {
+    .proc__nombre b { font-size: 14.5px; }
+    .proc__tipo { padding: 2px 8px; font-size: 9px; letter-spacing: 0.1em; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ps__cursor { animation: none; }
+    .proc::before { transition: none; }
+  }
+</style>
